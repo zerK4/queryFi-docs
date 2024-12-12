@@ -1,0 +1,115 @@
+---
+title: Limit
+---
+### `path` Method Documentation
+
+The path method dynamically injects path parameters into a URL. This is useful for building RESTful endpoints by embedding values directly into the request path.
+<Note type="note" title="Note">
+  **After finishing building your query attach `.build()` to generate it.**
+</Note>
+---
+
+## Method Signature  
+
+```typescript
+path(key: string, value: string | number): this
+```
+
+---
+
+## How It Works  
+
+- **`key`**: The path parameter's name.  
+- **`value`**: The value to be substituted in the path, either as a string or number.  
+
+The method stores the provided key-value pair in `pathParams` and returns the current instance for chaining.
+
+---
+
+## Use Cases  
+
+- **Resource Identification**: Specify unique resource identifiers in the URL.  
+- **RESTful API Endpoints**: Build dynamic endpoint URLs.  
+
+---
+
+## Examples  
+
+### Single Path Parameter  
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">
+  <TabsList>
+    <TabsTrigger value="ts">Typescript</TabsTrigger>
+    <TabsTrigger value="string">Generated URL</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="ts">
+  ```typescript
+  query.path("userId", 42);
+  ```
+  </TabsContent>
+
+  <TabsContent value="string">
+  ```
+  /users/42
+  ```
+  </TabsContent>
+</Tabs>
+
+---
+
+### Multiple Path Parameters  
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">
+  <TabsList>
+    <TabsTrigger value="ts">Typescript</TabsTrigger>
+    <TabsTrigger value="string">Generated URL</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="ts">
+  ```typescript
+  query.path("userId", 42).path("postId", 99);
+  ```
+  </TabsContent>
+
+  <TabsContent value="string">
+  ```
+  /users/42/posts/99
+  ```
+  </TabsContent>
+</Tabs>
+
+---
+
+### Dynamic Path Construction  
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">
+  <TabsList>
+    <TabsTrigger value="ts">Typescript</TabsTrigger>
+    <TabsTrigger value="string">Generated URL</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="ts">
+  ```typescript
+  const userId = 123;
+  const postId = 456;
+
+  query.path("userId", userId).path("postId", postId);
+  ```
+  </TabsContent>
+
+  <TabsContent value="string">
+  ```
+  /users/123/posts/456
+  ```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Summary Table  
+
+| **Method Call**                        | **Generated URL**         | **Description**             |
+|----------------------------------------|----------------------------|-----------------------------|
+| `query.path("userId", 42)`             | `/users/42`               | Adds a single path segment  |
+| `query.path("userId", 42).path("postId", 99)` | `/users/42/posts/99` | Adds multiple path segments |

@@ -1,0 +1,189 @@
+---
+title: With
+---
+
+### `with` Method Documentation
+
+The `with` method allows loading related models or entities through **eager loading**. It supports specifying a **single relation**, **multiple relations**, and **dynamic relations** through type-safe arrays.
+<Note type="note" title="Note">
+  **After finishing building your query attach `.build()` to generate it.**
+</Note>
+---
+
+## Method Signature  
+
+```typescript
+with(relations: ExtractRelations<T> | ExtractRelations<T>[]): this;
+```
+
+### Parameters  
+
+- **`relations`**:  
+  - A single relation name as a string, or  
+  - An array of relation names.
+
+### Returns  
+The current instance, enabling method chaining.
+
+---
+
+## Examples  
+
+**Assuming the following typescript interfaces**
+
+```typescript
+interface User {
+  id: number;
+  name: string;
+  email: string;
+  posts: Post[];
+  comments: Comment[];
+}
+
+interface Post {
+  id: number;
+  title: string;
+  content: string;
+  author: User;
+}
+
+interface Comment {
+  id: number;
+  content: string;
+  commenter: User;
+}
+```
+
+**Starting the query**
+
+```typescript
+const query = createQuery<User>('/api/users') // mark the base url 
+```
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">
+  <TabsList>
+    <TabsTrigger value="ts">Typescript</TabsTrigger>
+    <TabsTrigger value="string">Query</TabsTrigger>
+  </TabsList>
+  <TabsContent value="ts">
+```typescript
+query.with("posts");
+// Posts is expected to be typesafe if the interface was assigned as a generic tot the createQuery function.
+```
+  </TabsContent>
+  
+  <TabsContent value="string">
+  ```
+?with=posts
+```
+  </TabsContent>
+  </Tabs>
+
+---
+
+### 2. Multiple Relations (Array)  
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">
+  <TabsList>
+    <TabsTrigger value="ts">Typescript</TabsTrigger>
+    <TabsTrigger value="string">Query</TabsTrigger>
+  </TabsList>
+  <TabsContent value="ts">
+  ```typescript
+query.with(["posts", "comments"]);
+// Posts and comments is expected to be typesafe if the interface was assigned as a generic tot the createQuery function.
+```
+</TabsContent>
+  <TabsContent value="string">
+  ```
+?with=posts,comments
+```
+</TabsContent>
+</Tabs>
+---
+
+### 3. Dynamic Relations (Type-Safe)
+
+Assuming you have 2 interfaces like this
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">
+  <TabsList>
+    <TabsTrigger value="ts">Typescript</TabsTrigger>
+    <TabsTrigger value="in">Interfaces</TabsTrigger>
+    <TabsTrigger value="string">Query</TabsTrigger>
+  </TabsList>
+  <TabsContent value="ts">
+```typescript
+import ExtractRelations from 'queryBuilder'
+
+const relations: ExtractRelations<Post>[] = ["author", "category"];
+query.with(relations);
+```
+  </TabsContent>
+  <TabsContent value="in">
+    ```typescript
+    interface User {
+      id: number,
+      name: string,
+      email: string,
+      posts: Post[]
+      // etc...
+    }
+
+    interface Post {
+      author: User,
+      title: string,
+      content: string
+    }
+    ```
+</TabsContent>
+  <TabsContent value="string">
+  ```
+?with=author,category
+```
+  </TabsContent>
+  </Tabs>
+
+---
+### 4. Nested Relations
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">
+  <TabsList>
+    <TabsTrigger value="ts">Typescript</TabsTrigger>
+    <TabsTrigger value="string">Query</TabsTrigger>
+  </TabsList>
+  <TabsContent value="ts">
+```typescript
+import ExtractRelations from 'queryBuilder'
+
+const relations: ExtractRelations<Post>[] = ["author.comments", "category"];
+query.with(relations);
+```
+  </TabsContent>
+  <TabsContent value="string">
+  ```
+?with=author.comments,category
+```
+  </TabsContent>
+  </Tabs>
+
+---
+
+## With Cases Table  
+
+| **Format**            | **Example**                     | **Use Case**               |
+|----------------------|----------------------------------|----------------------------|
+| Single Relation       | `query.with("author")`          | Load one related model     |
+| Nested Relation       | `query.with("author.comments")`          | Load one related model and it's related relation     |
+| Multiple Relations    | `query.with(["author", "tags"])` | Load multiple models       |
+| Dynamic Relations     | `query.with(relations)`         | Type-safe relation loading |
+
+---
+
+## **Summary**  
+
+- Use **single string values** for loading one relation.  
+- Use **arrays of strings** for multiple relations.  
+- Use **type-safe arrays** when defining relations dynamically.  
+
+This ensures concise, clear, and scalable queries for models and related data. 🚀

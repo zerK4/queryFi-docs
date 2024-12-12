@@ -1,0 +1,86 @@
+---
+title: Getters
+# description: This section provides an overview of the custom components available in AriaDocs.
+---
+
+### `get` & `first` Methods Documentation
+
+The `get` method allows you to retrieve multiple items into an array while the `first` method will get the first matching item and return its object.
+
+<Note type="note" title="Note">
+  **It does not allow you to attach the build method after any of this two.**
+</Note>
+
+---
+
+## Method Signature
+
+```typescript
+get(): string;
+
+first(): string;
+```
+
+### Parameters
+
+- `none`
+
+### Returns
+
+The built url
+
+---
+
+## Examples
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">
+  <TabsList>
+    <TabsTrigger value="ts">Typescript</TabsTrigger>
+    <TabsTrigger value="query">Query</TabsTrigger>
+  </TabsList>
+  
+  <TabsContent value="ts">
+    ### 1. Get
+
+    ```typescript
+    query
+      .select("name")
+      .get();
+    ```
+
+    ---
+
+    ### 2. First
+
+    ```typescript
+    query
+      .select("name")
+      .first();
+    ```
+  </TabsContent>
+
+  <TabsContent value="query">
+    ### 1. Get
+
+    ```
+    ?select=name&getter=get
+    ```
+
+    ---
+
+    ### 2. First
+
+    ```
+    ?select=name&getter=first
+    ```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Select Cases Table
+
+| **Format**            | **Example**                        | **Use Case**               |
+|----------------------|-------------------------------------|----------------------------|
+| Get        | `query.get()`             | Retrieve a list with items        |
+| First      | `query.first()`  | Retrieve one item  |

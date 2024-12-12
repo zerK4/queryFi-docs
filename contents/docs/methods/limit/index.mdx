@@ -1,0 +1,57 @@
+---
+title: Limit
+---
+### `limit` Method Documentation
+
+The `limit` method specifies the sorting order for query results. It supports **single columns**, **multiple columns**, and **key-value pairs** with optional sorting directions (`asc` or `desc`).  
+<Note type="note" title="Note">
+  **After finishing building your query attach `.build()` to generate it.**
+</Note>
+---
+
+## Method Signature
+
+```typescript
+limit(value: number): this;
+```
+
+- **`value`**: The number of records to limit the query to. This must be a positive integer.
+
+---
+
+### Return Type
+
+- **`this`**: The method returns the current instance, allowing for method chaining.
+
+---
+
+### Usage Example
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">
+  <TabsList>
+    <TabsTrigger value="ts">Typescript</TabsTrigger>
+    <TabsTrigger value="string">Query</TabsTrigger>
+  </TabsList>
+  <TabsContent value="ts">
+    ```typescript
+    query.limit(10);
+    ```
+  </TabsContent>
+  <TabsContent value="string">
+    ```
+    ?limit=10
+    ```
+  </TabsContent>
+</Tabs>
+
+---
+
+### Summary of Generated Query
+
+| **Usage Format**         | **Generated Query**    | **Description**                          |
+|--------------------------|------------------------|------------------------------------------|
+| `query.limit(10)`         | `?limit=10`            | Limits the results to 10 records         |
+
+---
+
+The `limit` method allows you to control the number of records returned by your query. It is useful for pagination, performance optimization, or simply limiting the dataset for a specific use case. By passing a positive integer, you can easily control the query results.

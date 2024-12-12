@@ -1,0 +1,237 @@
+---
+title: Where
+---
+### `where` Method Documentation
+
+The `where` method is used to dynamically build query conditions for the backend. This method supports both simple key-value pairs and more complex conditions involving operators such as `>`, `<`, `=`, `like`, `in`, `between`, etc.
+
+
+<Note type="note" title="Note">
+  **After finishing building your query attach `.build()` to generate it.**
+</Note>
+
+---
+
+## Method Signature
+
+```typescript
+where(
+  conditions:
+    | { [K in keyof T]?: T[K] }
+    | Array<[keyof T, AllowedOperators, any]>
+): this;
+```
+
+### Parameters
+
+- `conditions`: 
+  - A key-value pair object where each key represents a column and the value represents the condition to apply.
+  - Or, an array of conditions where each condition is an array with the format `[column, operator, value]`.
+
+### Supported Operators
+
+The second element of the condition array (the operator) can be one of the following values:
+
+- `"="`: Equal to.
+- `">"`: Greater than.
+- `"<"`: Less than.
+- `">="`: Greater than or equal to.
+- `"<="`: Less than or equal to.
+- `"!="`: Not equal to.
+- `"like"`: Pattern matching with `LIKE`.
+- `"not like"`: Exclude matches with `NOT LIKE`.
+- `"whereIn"`: Check if a column’s value is in a set of values.
+- `"whereNotIn"`: Check if a column’s value is not in a set of values.
+- `"whereBetween"`: Check if a column’s value is between two values.
+- `"whereNotBetween"`: Check if a column’s value is not between two values.
+
+---
+
+### Return Type
+
+The method returns the current instance (`this`), allowing method chaining.
+
+---
+
+### Usage Examples
+
+#### 1. Basic Key-Value Pair (Equality)
+
+Condition where a column is equal to a specific value.
+
+```typescript
+.where([["id", "=", 10]])
+
+//or
+
+.where({
+    id: 10
+})
+```
+Generates the query:  
+```bash
+where[id]=10
+```
+
+#### 2. Greater Than (`>`)
+
+Condition where a column’s value is greater than the specified value.
+
+```typescript
+.where([["age", ">", 30]])
+```
+Generates the query:  
+```bash
+where[age]>30
+```
+
+#### 3. Less Than (`<`)
+
+Condition where a column’s value is less than the specified value.
+
+```typescript
+.where([["age", "<", 30]])
+```
+Generates the query:  
+```bash
+where[age]<30
+```
+
+#### 4. Greater Than or Equal (`>=`)
+
+Condition where a column’s value is greater than or equal to the specified value.
+
+```typescript
+.where([["age", ">=", 30]])
+```
+Generates the query:  
+```bash
+where[age]>=30
+```
+
+#### 5. Less Than or Equal (`<=`)
+
+Condition where a column’s value is less than or equal to the specified value.
+
+```typescript
+.where([["age", "<=", 30]])
+```
+Generates the query:  
+```bash
+where[age]<=30
+```
+
+#### 6. Not Equal (`!=`)
+
+Condition where a column’s value is not equal to the specified value.
+
+```typescript
+.where([["age", "!=", 30]])
+```
+Generates the query:  
+```bash
+where[age]!==30
+```
+
+#### 7. Like (`like`)
+
+Condition where a column’s value matches a pattern using `LIKE`.
+
+```typescript
+.where([["name", "like", "%john%"]])
+```
+Generates the query:  
+```bash
+where[name][like]=%john%
+```
+
+#### 8. Not Like (`not like`)
+
+Condition where a column’s value does not match a pattern using `NOT LIKE`.
+
+```typescript
+.where([["name", "not like", "%admin%"]])
+```
+Generates the query:  
+```bash
+where[name][not+like]=%admin%
+```
+
+#### 9. Where In (`whereIn`)
+
+Condition where a column’s value is in a list of values.
+
+```typescript
+.where([["id", "whereIn", [10, 20, 30]]])
+```
+Generates the query:  
+```bash
+where[id][whereIn][]=10&where[id][whereIn][]=20&where[id][whereIn][]=30
+```
+
+#### 10. Where Not In (`whereNotIn`)
+
+Condition where a column’s value is not in a list of values.
+
+```typescript
+.where([["id", "whereNotIn", [10, 20, 30]]])
+```
+Generates the query:  
+```bash
+where[id][whereNotIn][]=10&where[id][whereNotIn][]=20&where[id][whereNotIn][]=30
+```
+
+#### 11. Where Between (`whereBetween`)
+
+Condition where a column’s value is between two values.
+
+```typescript
+.where([["id", "whereBetween", [10, 20]]])
+```
+Generates the query:  
+```bash
+where[id][whereBetween][]=10&where[id][whereBetween][]=20
+```
+
+#### 12. Where Not Between (`whereNotBetween`)
+
+Condition where a column’s value is not between two values.
+
+```typescript
+.where([["id", "whereNotBetween", [10, 20]]])
+```
+Generates the query:  
+```bash
+where[id][whereNotBetween][]=10&where[id][whereNotBetween][]=20
+```
+
+#### 13. Multiple conditions
+
+```typescript
+.where([
+    ['id', 'in', [10, 50, 100, 20, 30]],
+    ['name', '%like%', "%john%"],
+    ['status', '=', "active"],
+]).build()
+```
+
+---
+
+### Summary of Generated Queries
+
+| Condition                 | Generated Query                                                                            | Description                                             |
+|-------------------------------|-----------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| `["id", "=", 10]`              | `where[id]=10`                                                                                 | Exact match (Equality)                                      |
+| `["age", ">", 30]`             | `where[age]>30`                                                                                 | Greater than operator                                        |
+| `["age", "<", 30]`             | `where[age]<30`                                                                                 | Less than operator                                           |
+| `["age", ">=", 30]`            | `where[age]>=30`                                                                                | Greater than or equal operator                               |
+| `["age", "<=", 30]`            | `where[age]<=30`                                                                                | Less than or equal operator                                  |
+| `["age", "!=", 30]`            | `where[age]!==30`                                                                                | Not equal operator                                           |
+| `["name", "like", "%john%"]`   | `where[name][like]=%john%`                                                                       | Pattern matching with LIKE operator                          |
+| `["name", "not like", "%admin%"]` | `where[name][not+like]=%admin%`                                                                  | Exclude pattern matching with NOT LIKE operator              |
+| `["id", "whereIn", [10, 20, 30]]` | `where[id][whereIn][]=10&where[id][whereIn][]=20&where[id][whereIn][]=30`                     | Column value is in a set of values (`IN` condition)          |
+| `["id", "whereNotIn", [10, 20, 30]]` | `where[id][whereNotIn][]=10&where[id][whereNotIn][]=20&where[id][whereNotIn][]=30`             | Column value is not in a set of values (`NOT IN` condition)  |
+| `["id", "whereBetween", [10, 20]]` | `where[id][whereBetween][]=10&where[id][whereBetween][]=20`                                    | Column value is between two numbers (`BETWEEN` condition)    |
+| `["id", "whereNotBetween", [10, 20]]` | `where[id][whereNotBetween][]=10&where[id][whereNotBetween][]=20`                              | Column value is not between two numbers (`NOT BETWEEN`)      |
+
+---

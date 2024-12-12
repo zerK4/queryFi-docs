@@ -1,0 +1,89 @@
+---
+title: Build
+---
+### `build` Method Documentation
+
+The `build()` method constructs a URL from the base URL, applies path parameters, transforms query parameters (if necessary), validates the parameters (if a validation schema is provided), and then appends the query string to the URL.
+
+---
+
+### What It Does
+
+1. **Path Parameter Replacement**: 
+   - If there are any path parameters specified, it replaces placeholders (e.g., `{key}`) in the URL with the corresponding values. The values are URL-encoded to ensure they are safe to use in a URL.
+
+2. **Parameter Transformation**:
+   - If the `transformParams` option is provided, it will apply the function to transform the query parameters before appending them to the URL.
+
+3. **Parameter Validation**:
+   - If a validation schema is provided, it will attempt to validate the query parameters using the schema before continuing with URL construction. If validation fails, an error is thrown.
+
+4. **Building Query String**:
+   - It constructs a query string by appending key-value pairs to the URL. If the values are arrays or objects, they will be serialized into JSON strings before appending.
+
+5. **Final URL Construction**:
+   - If there are query parameters, they will be appended to the base URL as a query string (e.g., `?key=value`). If no query parameters exist, the URL will be returned without a query string.
+
+---
+
+### How It's Used
+
+The `build()` method is used to generate a complete URL for making HTTP requests. This is typically called after setting up any necessary path parameters and query parameters using the class's methods (such as `path()`, `query()`, etc.).
+
+---
+
+### Example
+
+Assume we have a `createQuery` class that allows us to build URLs with path parameters and query parameters.
+
+```typescript
+import {createQuery} from 'query-builder'
+
+const query = new createQuery('api/users');
+const url = query.where([
+    ['name', 'like', '%John%']
+    ['email', 'not like', '%@gmail.com%']
+  ])
+  .build();
+
+console.log(url);
+// Output: https://api.example.com/api/users?where%5Bname%5D%5Blike%5D=%25John%25
+```
+
+### Explanation:
+1. The base URL is `https://api.example.com/users/{userId}`.
+2. The `path()` method replaces `{userId}` with `123`, resulting in `https://api.example.com/users/123`.
+3. The `query()` method adds two query parameters: `sort=desc` and `filter=["active", "admin"]`. The `filter` array is serialized as a JSON string.
+4. The final URL is generated with the query string: `https://api.example.com/users/123?sort=desc&filter=%5B%22active%22%2C%22admin%22%5D`.
+
+---
+
+### Method Signature
+
+```typescript
+build(): string
+```
+
+- **Returns**: The method returns a string representing the full URL with the applied path parameters and query string.
+
+---
+
+### No Parameters Required
+
+- The `build()` method does not take any parameters. It uses the current state of the `pathParams`, `queryParams`, and any options set during the object configuration.
+
+---
+
+### Edge Cases
+- **Empty Parameters**: If no path parameters or query parameters are set, the method will return only the base URL.
+  
+  ```typescript
+  import {createQuery} from 'query-builder'
+
+  const query = new createQuery('https://api.example.com/users');
+  const url = query.build();
+  console.log(url); // Output: https://api.example.com/users
+  ```
+---
+
+The `build()` method is an essential utility for constructing fully qualified URLs based on dynamic parameters. It ensures flexibility in URL building, supports path and query parameters, and allows for query parameter transformation and validation.

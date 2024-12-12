@@ -1,0 +1,124 @@
+---
+title: Order by
+---
+### `orderBy` Method Documentation
+
+The `orderBy` method specifies the sorting order for query results. It supports **single columns**, **multiple columns**, and **key-value pairs** with optional sorting directions (`asc` or `desc`).  
+<Note type="note" title="Note">
+  **After finishing building your query attach `.build()` to generate it.**
+</Note>
+---
+
+## Method Signature  
+
+```typescript
+orderBy(
+  column: keyof T | { [K in keyof T]?: "asc" | "desc" } | string[]
+): this;
+```
+
+---
+
+### Parameters  
+
+- **`column`**:  
+  - A **string** representing a column name. Optionally, append `:asc` or `:desc` for sorting direction.  
+  - An **object** where keys are column names and values are sorting directions (`asc` or `desc`).  
+  - An **array of strings**, where each string follows the `column:direction` format.
+
+---
+
+### Returns  
+
+The current instance, enabling method chaining.
+
+---
+
+## Examples  
+
+---
+
+### 1. Single Column (Default Ascending)  
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">  
+<TabsList>  
+  <TabsTrigger value="ts">Typescript</TabsTrigger>
+  <TabsTrigger value="string">Query</TabsTrigger>
+</TabsList>  
+<TabsContent value="ts">  
+```typescript
+query.orderBy("name");
+```  
+  </TabsContent>  
+  <TabsContent value="string">  
+```
+?orderBy[name]=asc
+```  
+  </TabsContent>  
+</Tabs>  
+
+---
+
+### 2. Single Column (Descending)  
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">  
+  <TabsList>  
+    <TabsTrigger value="ts">Typescript</TabsTrigger>
+    <TabsTrigger value="string">Query</TabsTrigger>
+  </TabsList>  
+  
+  <TabsContent value="ts">  
+
+```typescript
+query.orderBy("email:desc");
+```  
+
+  </TabsContent>  
+
+  <TabsContent value="string">  
+
+```
+?orderBy[email]=desc
+```  
+
+  </TabsContent>  
+</Tabs>  
+
+---
+
+### 3. Multiple Columns (Array)  
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">  
+  <TabsList>  
+    <TabsTrigger value="ts">Typescript</TabsTrigger>
+    <TabsTrigger value="string">Query</TabsTrigger>
+  </TabsList>  
+  
+  <TabsContent value="ts">  
+
+```typescript
+query.orderBy("name", "desc");
+```  
+
+  </TabsContent>  
+
+  <TabsContent value="string">  
+
+```
+?orderBy[name]=desc
+```  
+
+  </TabsContent>  
+</Tabs>  
+
+---
+
+### Summary Table  
+
+| **Format**            | **Example**                        | **Use Case**               |
+|----------------------|------------------------------------|----------------------------|
+| Single Column         | `query.orderBy("name")`            | Ascending by `name`        |
+| Single Column (Desc)  | `query.orderBy("email:desc")`      | Descending by `email`      |
+---
+
+By using `orderBy`, you can efficiently sort results by one or more columns, either ascending or descending. Use the examples above to tailor your queries as needed! 🚀

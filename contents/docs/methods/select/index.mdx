@@ -1,0 +1,109 @@
+---
+title: Select
+# description: This section provides an overview of the custom components available in AriaDocs.
+---
+
+### `select` Method Documentation
+
+The `select` method specifies the columns to retrieve from a data source. It supports selecting **single columns**, **multiple columns**, and **dynamically generated columns**.
+
+<Note type="note" title="Note">
+  **After finishing building your query attach `.build()` to generate it.**
+</Note>
+
+---
+
+## Method Signature
+
+```typescript
+select(columns: keyof T | (keyof T)[]): this;
+```
+
+### Parameters
+
+- `columns`:
+  - A single column name as a string
+  - An array of column names.
+
+### Returns
+
+The current instance, allowing method chaining.
+
+---
+
+## Examples
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">
+  <TabsList>
+    <TabsTrigger value="ts">Typescript</TabsTrigger>
+    <TabsTrigger value="query">Query</TabsTrigger>
+  </TabsList>
+  
+  <TabsContent value="ts">
+    ### 1. Single Column Selection
+
+    ```typescript
+    query.select("name");
+    ```
+    ---
+    
+    ### 2. Multiple Columns Selection (Array)
+
+    ```typescript
+    query.select(["name", "email", "age"]);
+    ```
+
+    ---
+    
+    ### 3. Dynamic Columns (Type-Safe)
+
+    ```typescript
+    const columns: (keyof User)[] = ["id", "email"];
+    query.select(columns);
+    ```
+  </TabsContent>
+
+  <TabsContent value="query">
+    ### 1. Single Column Selection
+
+    ```
+    ?select=name
+    ```
+
+    ---
+
+    ### 2. Multiple Columns Selection (Array)
+
+    ```
+    ?select=name,email,age
+    ```
+
+    ---
+
+    ### 3. Dynamic Columns (Type-Safe)
+
+    ```
+    ?select=id,email
+    ```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Select Cases Table
+
+| **Format**            | **Example**                        | **Use Case**               |
+|----------------------|-------------------------------------|----------------------------|
+| Single Column         | `query.select("name")`             | Retrieve one column        |
+| Multiple Columns      | `query.select(["name", "email"])`  | Retrieve multiple columns  |
+| Dynamic Columns Array | `query.select(columns)`            | Type-safe dynamic selection |
+
+---
+
+## Summary
+
+- Use **single string values** for selecting one column.
+- Use **arrays of strings** for multiple columns.
+- Use **type-safe arrays** when defining column names dynamically.
+
+This ensures a clean, readable API for querying data while preserving type safety and flexibility. 🚀

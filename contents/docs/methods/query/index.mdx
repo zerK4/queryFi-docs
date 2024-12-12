@@ -1,0 +1,123 @@
+---
+title: Order by
+---
+### `query` Method Documentation
+
+The `query` method in your trait is responsible for adding query parameters to the request URL. It works by accepting a `key` and a `value`, storing them in the `queryParams` object, and returning the current instance for method chaining.
+
+---
+
+## **Method Signature**  
+
+```typescript
+query(key: string, value: Primitive): this
+```
+
+### **Parameters:**  
+- **`key: string`** - The name of the query parameter.  
+- **`value: Primitive`** - The value of the query parameter, where `Primitive` can be a string, number, or boolean.  
+
+### **Returns:**  
+- `this` - The current instance, allowing chained calls.
+
+---
+
+## **Use Cases**  
+
+1. **Dynamic Query Parameter Assignment**  
+   Adds parameters like filters, pagination settings, and search terms.  
+
+2. **Custom API Queries**  
+   Supports APIs with custom query structures by passing custom key-value pairs.
+
+---
+
+## **Examples**  
+
+### **1. Adding a Single Query Parameter**  
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">
+  <TabsList>
+    <TabsTrigger value="ts">Typescript</TabsTrigger>
+    <TabsTrigger value="string">Generated URL</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="ts">
+  ```typescript
+  query.query("search", "laptop");
+  ```
+  </TabsContent>
+
+  <TabsContent value="string">
+  ```
+  ?search=laptop
+  ```
+  </TabsContent>
+</Tabs>
+
+---
+
+### **2. Adding Multiple Query Parameters**  
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">
+  <TabsList>
+    <TabsTrigger value="ts">Typescript</TabsTrigger>
+    <TabsTrigger value="string">Generated URL</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="ts">
+  ```typescript
+  query.query("search", "laptop").query("category", "electronics");
+  ```
+  </TabsContent>
+
+  <TabsContent value="string">
+  ```
+  ?search=laptop&category=electronics
+  ```
+  </TabsContent>
+</Tabs>
+
+---
+
+### **3. Dynamic Query Parameter Assignment**  
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">
+  <TabsList>
+    <TabsTrigger value="ts">Typescript</TabsTrigger>
+    <TabsTrigger value="string">Generated URL</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="ts">
+  ```typescript
+  const filters = { brand: "apple", price: "1000-2000" };
+
+  Object.entries(filters).forEach(([key, value]) => {
+    query.query(key, value);
+  });
+  ```
+  </TabsContent>
+
+  <TabsContent value="string">
+  ```
+  ?brand=apple&price=1000-2000
+  ```
+  </TabsContent>
+</Tabs>
+
+---
+
+## **Summary Table**  
+
+| **Method Call**                            | **Generated URL**             | **Description**             |
+|--------------------------------------------|-------------------------------|-----------------------------|
+| `query.query("page", 2)`                   | `?page=2`                     | Sets pagination page number |
+| `query.query("sort", "name")`              | `?sort=name`                  | Sets sorting by name        |
+| `query.query("category", "electronics")`   | `?category=electronics`       | Sets product category filter |
+| `query.query("active", true)`              | `?active=true`                | Filters active records       |
+
+---
+
+### **Conclusion**  
+
+The `query` method is essential for dynamically building query strings, making API requests customizable and intuitive. It supports both single and multiple parameters, streamlining API integration and query management.

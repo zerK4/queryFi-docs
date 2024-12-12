@@ -1,0 +1,100 @@
+---
+title: Paginate/Page
+---
+### `paginate` and `page` Method Documentation
+Here’s how the documentation for both `paginate` and `page` methods would look like, using tabs to display TypeScript examples, generated query parameters, and their corresponding query strings:
+<Note type="note" title="Note">
+  **After finishing building your query attach `.build()` to generate it.**
+</Note>
+---
+## Method Signature
+
+```typescript
+paginate(value: number, page?:number): this;
+
+page(value: number): this;
+```
+
+- **`paginate value`**: The number of records to return per page.
+- **`paginate page`**: The page number you want to return.
+- **`page value`**: The page number you want to return.
+
+---
+### Examples
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">
+  <TabsList>
+    <TabsTrigger value="ts">Typescript</TabsTrigger>
+    <TabsTrigger value="string">Query String</TabsTrigger>
+  </TabsList>
+
+  <TabsContent value="ts">
+    ```typescript
+    // Using paginate with perPage only
+    query.paginate(10);
+
+    // Using paginate with perPage and page number
+    queryWithPage.paginate(10, 2);
+
+    // Using page to set the page number
+    queryPage.page(3);
+    ```
+  </TabsContent>
+
+  <TabsContent value="string">
+    ```
+    // Generated query string for paginate with perPage only
+    ?paginate=10
+    ```
+
+    ```
+    // Generated query string for paginate with perPage and page
+    ?paginate=10&page=2
+    ```
+
+    ```
+    // Generated query string for page number only
+    ?page=3
+    ```
+  </TabsContent>
+</Tabs>
+
+---
+
+### Methods
+
+#### 1. `paginate(perPage: number, page?: number)`
+
+The `paginate` method sets the number of items per page (`perPage`) and optionally the current page (`page`).
+
+- **Parameters**:
+  - `perPage`: The number of items per page.
+  - `page`: (Optional) The page number to fetch.
+
+- **Query Parameter**:
+  - `paginate`: Number of items per page.
+  - `page`: (Optional) Page number if provided.
+
+#### 2. `page(page: number)`
+
+The `page` method is used to set the page number when pagination has already been applied. It sets the current page number for the query.
+
+- **Parameters**:
+  - `page`: The page number to fetch.
+
+- **Query Parameter**:
+  - `page`: The page number.
+
+---
+
+### Usage Cases Table
+
+| Format                  | Example                                  | Query Parameter                                    | Query String                           |
+|-------------------------|------------------------------------------|---------------------------------------------------|----------------------------------------|
+| Paginate with perPage    | `query.paginate(10)`                     | `{"paginate": 10}`                                | `?paginate=10`                         |
+| Paginate with perPage & page | `query.paginate(10, 2)`                | `{"paginate": 10, "page": 2}`                     | `?paginate=10&page=2`                  |
+| Set page number          | `query.page(3)`                          | `{"page": 3}`                                    | `?page=3`                              |
+
+---
+
+This documentation covers both the `paginate` and `page` methods, with examples of how to use them in TypeScript, how the generated query parameters will look, and how to build the corresponding query strings for pagination. Let me know if you need further adjustments!
