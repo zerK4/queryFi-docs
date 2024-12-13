@@ -16,19 +16,23 @@ export default async function BlogIndexPage() {
   return (
     <div className='w-full mx-auto flex flex-col gap-1 sm:min-h-[91vh] min-h-[88vh] pt-2'>
       <div className='flex flex-col gap-2 mb-7'>
-        <h1 className='text-3xl font-extrabold'>The latest blogs of queryFi</h1>
+        <h1 className='text-3xl font-extrabold'>
+          The latest blogs of this product
+        </h1>
         <p className='text-muted-foreground'>
           All the latest blogs and news, straight from the team.
         </p>
       </div>
       <div className='grid grid-cols-1 gap-4 mb-5 md:grid-cols-3 sm:grid-cols-2 sm:gap-8'>
-        Nothing here yet.
+        {[].map((blog: any) => (
+          <BlogCard {...blog} slug={blog.slug} key={blog.slug} />
+        ))}
       </div>
     </div>
   );
 }
 
-export function BlogCard({
+function BlogCard({
   date,
   title,
   description,
