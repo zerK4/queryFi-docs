@@ -184,3 +184,21 @@ pre > code {
 .highlight-comp > code {
   background-color: transparent !important;
 }
+
+/* Add this CSS for a simple spinner loader */
+.loader {
+  @apply border-2 border-neutral-900 border-t-neutral-300;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  animation: spin 2s linear infinite;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}

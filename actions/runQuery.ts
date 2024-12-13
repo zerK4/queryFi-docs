@@ -5,17 +5,7 @@ import { createQuery } from "queryfi";
 
 export const runQueryAction = async (type: "get" | "first") => {
   try {
-    const isLocal = process.env.NEXT_PUBLIC_NODE_ENV === "local";
-
-    console.log(
-      process.env.NEXT_PUBLIC_PLAYGROUND_URL,
-      process.env.NEXT_PUBLIC_NODE_ENV,
-      "asdasdsa"
-    );
-
-    const baseUrl = `${process.env.NEXT_PUBLIC_PLAYGROUND_URL}${
-      isLocal ? "/api" : ""
-    }`;
+    const baseUrl = `${process.env.NEXT_PUBLIC_PLAYGROUND_URL}`;
 
     const query = createQuery("/api/users", {
       baseUrl,
