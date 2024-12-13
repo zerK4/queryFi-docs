@@ -26,15 +26,15 @@ export const NAVLINKS = [
 
 export function Navbar() {
   return (
-    <nav className='w-full border-b h-16 sticky top-0 z-50 bg-background'>
+    <nav className='sticky top-0 z-50 w-full h-16 border-b bg-background'>
       <div className='sm:container mx-auto w-[95vw] h-full flex items-center justify-between md:gap-2'>
         <div className='flex items-center gap-5'>
           <SheetLeftbar />
           <div className='flex items-center gap-6'>
-            <div className='sm:flex hidden'>
+            <div className='hidden sm:flex'>
               <Logo />
             </div>
-            <div className='lg:flex hidden items-center gap-4 text-sm font-medium text-muted-foreground'>
+            <div className='items-center hidden gap-4 text-sm font-medium lg:flex text-muted-foreground'>
               <NavMenu />
             </div>
           </div>
@@ -45,13 +45,13 @@ export function Navbar() {
             <Search />
             <div className='flex ml-2.5 sm:ml-0'>
               <Link
-                href='https://github.com/nisabmohd/NexDocs'
+                href='https://github.com/zerK4/queryfi-ts'
                 className={buttonVariants({ variant: "ghost", size: "icon" })}
               >
                 <GithubIcon className='h-[1.1rem] w-[1.1rem]' />
               </Link>
               <Link
-                href='#'
+                href='https://x.com/s_pav3l'
                 className={buttonVariants({
                   variant: "ghost",
                   size: "icon",

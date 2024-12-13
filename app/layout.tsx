@@ -47,7 +47,10 @@ export default function RootLayout({
         >
           <TooltipProvider delayDuration={0}>
             <Navbar />
-            <main className='h-auto scroll-smooth'>{children}</main>
+            <main className='h-auto scroll-smooth'>
+              {children}
+              <div className='fixed bottom-0 left-0 z-50 flex items-center justify-center w-full h-0 font-medium leaving text-foreground bg-background' />
+            </main>
             <Footer />
           </TooltipProvider>
         </ThemeProvider>

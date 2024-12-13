@@ -1,6 +1,7 @@
 import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { EachRoute, ROUTES } from "./routes-config";
+import anime from "animejs";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -82,4 +83,29 @@ export function stringToDate(date: string) {
 export function capitalizeFirstLetter(str: string): string {
   if (!str) return str;
   return str.charAt(0).toUpperCase() + str.slice(1);
+}
+
+export function leavingPage(url: string) {
+  const leavingEl = document.querySelector(".leaving");
+
+  if (leavingEl) {
+    leavingEl.innerHTML = "Leaving queryFi...";
+  }
+
+  const tl = anime.timeline();
+
+  tl.add({
+    targets: ".leaving",
+    height: ["0vh", "100vh"],
+    easing: "easeInOutQuad",
+    duration: 1050,
+  }).add({
+    targets: ".leaving",
+    translateY: "-100vh",
+    easing: "easeInOutQuad",
+    duration: 500,
+    complete: () => {
+      window.location.replace(url);
+    },
+  });
 }

@@ -5,6 +5,7 @@ import { buttonVariants } from "./ui/button";
 import { CommandIcon } from "lucide-react";
 import { useEffect } from "react";
 import anime from "animejs";
+import { leavingPage } from "@/lib/utils";
 
 function Hero() {
   useEffect(() => {
@@ -16,7 +17,7 @@ function Hero() {
 
       if ((event.metaKey || event.ctrlKey) && event.key === "g") {
         event.preventDefault();
-        window.location.href = "https://github.com";
+        leavingPage("https://github.com/zerK4/queryfi-ts");
       }
     };
     window.addEventListener("keydown", listener);
@@ -52,11 +53,11 @@ function Hero() {
       <h1 className='!text-5xl lg:!text-[10rem] dark:text-neutral-300 text-neutral-800'>
         queryFi
       </h1>
-      <div className='flex flex-col gap-4 justify-start px-3'>
+      <div className='flex flex-col justify-start gap-4 px-3'>
         <p className='text-start lg:!text-2xl dark:text-neutral-300 text-neutral-800'>
           Put your queries to work!
         </p>
-        <div className='w-full justify-start flex'>
+        <div className='flex justify-start w-full'>
           <Link
             href='/docs/installation'
             className={buttonVariants({
@@ -76,7 +77,8 @@ function Hero() {
             Read the docs
           </Link>
           <Link
-            href='/docs/installation'
+            onClick={() => leavingPage("https://github.com/zerK4/queryfi-ts")}
+            href='#'
             className={buttonVariants({
               variant: "ghost",
               className: "h-14 justify-start flex items-center gap-2",
