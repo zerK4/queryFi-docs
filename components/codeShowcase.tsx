@@ -101,7 +101,7 @@ export default function CodeShowcase() {
         </CodeBlock>
         <div className='inline-flex absolute -bottom-0.5 right-4 -space-x-px rounded-lg shadow-sm shadow-black/5 rtl:space-x-reverse'>
           <Button
-            className='w-fit rounded-none shadow-none first:rounded-s-lg last:rounded-e-lg focus-visible:z-10'
+            className='rounded-none shadow-none w-fit first:rounded-s-lg last:rounded-e-lg focus-visible:z-10'
             variant='outline'
             aria-label='Get Data'
             disabled={isTyping || loading} // Disable while loading
@@ -110,7 +110,7 @@ export default function CodeShowcase() {
             Get
           </Button>
           <Button
-            className='w-fit rounded-none shadow-none first:rounded-s-lg last:rounded-e-lg focus-visible:z-10'
+            className='rounded-none shadow-none w-fit first:rounded-s-lg last:rounded-e-lg focus-visible:z-10'
             variant='outline'
             aria-label='Get First'
             disabled={isTyping || loading} // Disable while loading
@@ -121,11 +121,11 @@ export default function CodeShowcase() {
         </div>
       </div>
       {loading ? (
-        <div className='min-w-28 flex items-center justify-center'>
+        <div className='flex items-center justify-center min-w-28'>
           <div ref={textRef} className='loader' />
         </div>
       ) : data ? (
-        <div className='response-block flex rounded-lg'>
+        <div className='flex rounded-lg response-block'>
           <CodeBlock
             raw={isTyping ? typedData : JSON.stringify(data, null, 2)}
             title='Response'

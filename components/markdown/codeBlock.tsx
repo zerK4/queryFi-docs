@@ -5,8 +5,6 @@ import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
 import { oneDark } from "react-syntax-highlighter/dist/cjs/styles/prism";
 import Copy from "./copy";
 import { LucideIcon } from "lucide-react";
-import { useTheme } from "next-themes";
-import { oneLight } from "react-syntax-highlighter/dist/esm/styles/prism";
 
 interface CodeBlockProps extends ComponentProps<"pre"> {
   children: ReactNode;
@@ -22,7 +20,6 @@ export default function CodeBlock({
   title,
   language = "typescript",
 }: CodeBlockProps) {
-  const { systemTheme, theme } = useTheme();
   const extractCodeAndLanguage = () => {
     if (React.isValidElement(children) && children.type === "pre") {
       const codeElement: any = React.Children.only(children.props.children);
@@ -54,22 +51,20 @@ export default function CodeBlock({
               {title}
             </span>
           </div>
-          <div className='sm:block hidden'>
+          <div className='hidden sm:block'>
             <Copy content={raw ?? (children as string)} />
           </div>
         </div>
       )}
       {!title && (
-        <div className='absolute right-2 top-2 z-10'>
+        <div className='absolute z-10 right-2 top-2'>
           <Copy content={raw ?? (children as string)} />
         </div>
       )}
       <div className='px-4'>
         <SyntaxHighlighter
           language={detectedLanguage}
-          style={
-            theme === "dark" || systemTheme === "dark" ? oneDark : oneLight
-          }
+          style={oneDark}
           customStyle={{
             margin: 0,
             width: "100%",
