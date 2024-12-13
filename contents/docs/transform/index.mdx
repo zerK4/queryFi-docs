@@ -1,0 +1,83 @@
+---
+title: Transform
+---
+
+The `transform` method allows you to interact with the query and modify or read it.
+
+---
+
+## Method Signature  
+
+```typescript
+transformer?: (params: Record<string, any>) => Record<string, any>;
+```
+
+---
+
+## Returns
+
+An object with the query before being converted to url.
+
+```json
+{
+    "with": "posts",
+    "where[id][whereBetween]": "10,30",
+    "paginate": 3,
+    "page": 4,
+    "getter": "get"
+}
+```
+
+---
+
+## Examples
+
+1. #### Track your queries.
+
+```ts
+const query = createQuery<Transaction>('/api/transactions', {
+  transformParams: (params) => {
+    console.group('Query Parameters');
+    console.log('Original Params:', params);
+    console.time('Query Execution');
+
+    trackQueryParameters(params);
+
+    return params;
+  }
+});
+```
+
+2. #### Dynamic transformations.
+
+```ts
+const query = createQuery<User>('/api/users', {
+  transformParams: (params) => {
+    // Convert camelCase to snake_case for backend compatibility
+    return Object.fromEntries(
+      Object.entries(params).map(([key, value]) => [
+        key.replace(/([A-Z])/g, '_$1').toLowerCase(),
+        value
+      ])
+    );
+  }
+});
+```
+
+3. #### Conditional updates.
+
+```ts
+const query = createQuery<Product>('/api/products', {
+  transformParams: (params) => {
+    // Add extra filter based on user's role
+    const userRole = getCurrentUserRole();
+    
+    return userRole === 'admin' 
+      ? params 
+      : {
+          ...params,
+          'visibility': 'public' // Non-admins see only public items
+        };
+  }
+});
+```

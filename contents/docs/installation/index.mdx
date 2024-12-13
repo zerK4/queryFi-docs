@@ -24,9 +24,11 @@ However, if you have a backend which can communicate with queries the frontend p
   <TabsContent value="client">
   Go ahead and open your frontend typescript app and run the following.
 
-    ```bash
-    npm install package-name
-    ```
+    <CodeBlock language="bash" title="Bash" >
+      {
+          `npm install package-name`
+      }
+    </CodeBlock>
 
   </TabsContent>
   <TabsContent value="server">
@@ -44,9 +46,9 @@ npm install package-name
 
   If you want to check a better approach and a better DX overall, read <a className="text-orange-500" href="/blog">this</a>
 
-```php:UserController.php
-
-<?php
+<CodeBlock language="php" title="UserController.php">
+{
+`<?php
 
 namespace App\Http\Controllers;
 
@@ -65,15 +67,19 @@ class UserController extends Controller
       return $this->processModel($request, $model)->get();
     }
 }
-```
+`
+}
+</CodeBlock>
   </StepperItem>
   <StepperItem title="Make use of it">
     In your frontend, whatever it is, use the frontend package you installed.
+  <CodeBlock language="typescript" title="getUsers.ts">
+  {
+  `import {createQuery} from 'package-name'
 
-    ```typescript:file.tsx
-    import {createQuery} from 'package-name'
-
-    const query = createQuery<User>("/api/users")
+    const query = createQuery<User>("/api/users", {
+      baseUrl: "http://localhost:8000/" // don't mind the extra / as it will be cleaned.
+    })
       .with(["posts"])
       .where([
         ["name", "like", "%Marisa%"],
@@ -103,7 +109,9 @@ class UserController extends Controller
     //         }
     //     ]
     // },
-    ```
+  `
+  }
+  </CodeBlock>
   </StepperItem>
 </Stepper>
 

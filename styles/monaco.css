@@ -1,0 +1,203 @@
+.monaco-editor-background {
+  background: #0b0e14 !important;
+}
+
+.monaco-editor .margin {
+  background: #0b0e14 !important;
+}
+
+.monaco-editor .line-numbers {
+  text-align: center !important;
+  width: 100%;
+}
+
+.editor .title {
+  background: transparent !important;
+}
+
+.find-widget {
+  border-radius: 5px !important;
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.45) !important;
+}
+
+.monaco-editor .suggest-widget {
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.45) !important;
+  padding: 5px !important;
+  background-image: #03071295 !important;
+  border-radius: 5px !important;
+  border: none !important;
+}
+
+.split-view-view {
+  background-color: #0b0e14 !important;
+  /* background-color: transparent !important; */
+}
+
+.monaco-editor .monaco-list-row {
+  border-radius: 5px;
+  padding: 0px 5px !important;
+}
+
+.monaco-editor .suggest-details {
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.45) !important;
+  padding: 5px !important;
+  background-image: #03071295 !important;
+  border-radius: 5px !important;
+  border: none !important;
+}
+
+.monaco-editor .parameter-hints-widget {
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.45) !important;
+  padding: 5px !important;
+  background-image: #03071295 !important;
+  border-radius: 5px !important;
+}
+
+.monaco-scrollable-element > .shadow.top {
+  box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.75) !important;
+  top: -3px !important;
+}
+
+.actions-container.highlight-toggled {
+  display: none !important;
+}
+
+.codicon-toolbar-more,
+.codicon-word-wrap {
+  display: block !important;
+}
+
+.monaco-editor-hover,
+.monaco-hover {
+  box-shadow: 0px 8px 32px rgba(0, 0, 0, 0.45) !important;
+  padding: 5px !important;
+  background-image: #03071295 !important;
+  backdrop-filter: blur(10px) !important;
+  border-radius: 5px !important;
+  border: none !important;
+}
+
+.monaco-workbench
+  .part.titlebar
+  > .titlebar-container
+  > .titlebar-center
+  > .window-title
+  > .command-center
+  .action-item.command-center-center {
+  border: none !important;
+  background: transparent !important;
+}
+
+.titlebar-left {
+  font-family: FiraCode Nerd Font !important;
+  font-weight: bold;
+  color: white;
+}
+
+.search-icon {
+  display: none !important;
+}
+
+.codicon-search::before {
+  display: none !important;
+}
+
+.codicon-arrow-right,
+.codicon-arrow-left {
+  display: none !important;
+}
+
+.titlebar-right > * {
+  display: none !important;
+}
+
+.quick-input-widget {
+  top: 30% !important;
+  padding: 5px !important;
+  border-radius: 5px !important;
+  border: none !important;
+}
+
+.monaco-list-rows {
+  background: transparent !important;
+}
+
+.notifications-toasts .monaco-list-row:hover {
+  background: none !important;
+}
+
+.monaco-list-row.focused {
+  background-color: rgb(181 198 228 / 25%) !important;
+}
+
+.synthetic-focus {
+  outline-color: rgba(50, 50, 50, 1) !important;
+}
+
+.quick-input-widget .monaco-label {
+  font-size: 14px !important;
+}
+
+.quick-input-filter .monaco-inputbox {
+  border-radius: 5px !important;
+  padding: 7px !important;
+  font-family: "FiraCode Nerd Font" !important;
+  font-size: 14px !important;
+  margin-bottom: 16px !important;
+}
+
+#command-blur {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  background: #03071270;
+  top: 0;
+  left: 0;
+}
+
+.monaco-inputbox input::placeholder {
+  color: rgba(255, 255, 255, 0.3) !important;
+}
+
+.monaco-workbench label {
+  color: #fff !important;
+  font-size: 14px !important;
+}
+
+.sidebar .composite.title,
+.sidebar .pane-header {
+  display: none !important;
+}
+
+.sidebar .pane-body {
+  margin-top: 0 !important;
+  padding-top: 0 !important;
+}
+
+.sidebar .split-view-view {
+  padding-top: 0 !important;
+}
+
+.sidebar .split-view-view > .content {
+  height: 100% !important;
+}
+
+.sidebar .tree-explorer-viewlet-tree-view {
+  height: 100% !important;
+}
+
+.sidebar .monaco-tl-contents {
+  border: none !important;
+}
+
+.sidebar .indent-guide {
+  visibility: hidden !important;
+}
+
+.monaco-tree .monaco-tree-row .label-name,
+.monaco-list .monaco-list-row .monaco-icon-label .label-name {
+  font-family: "FiraCode Nerd Font", Menlo, Monaco, "Courier New", monospace !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  color: #94a3b8 !important;
+}

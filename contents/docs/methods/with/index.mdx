@@ -177,13 +177,3 @@ query.with(relations);
 | Nested Relation       | `query.with("author.comments")`          | Load one related model and it's related relation     |
 | Multiple Relations    | `query.with(["author", "tags"])` | Load multiple models       |
 | Dynamic Relations     | `query.with(relations)`         | Type-safe relation loading |
-
----
-
-## **Summary**  
-
-- Use **single string values** for loading one relation.  
-- Use **arrays of strings** for multiple relations.  
-- Use **type-safe arrays** when defining relations dynamically.  
-
-This ensures concise, clear, and scalable queries for models and related data. 🚀

@@ -67,6 +67,7 @@
 @layer base {
   * {
     @apply border-border;
+    font-family: "CaskaydiaMono Nerd Font" !important;
   }
   html {
     @apply scroll-smooth;
@@ -143,7 +144,7 @@
 }
 
 pre {
-  @apply !bg-[#18181B] !border !border-[#2b2b2f];
+  @apply dark:!bg-[#0b0e14] !bg-neutral-50 !border !border-[#2b2b2f];
   padding: 2px 0 !important;
   width: inherit !important;
   overflow-x: auto;

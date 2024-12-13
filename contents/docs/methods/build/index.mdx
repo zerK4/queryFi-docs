@@ -5,6 +5,14 @@ title: Build
 
 The `build()` method constructs a URL from the base URL, applies path parameters, transforms query parameters (if necessary), validates the parameters (if a validation schema is provided), and then appends the query string to the URL.
 
+<Note type="warning">
+When using `.build()` method make sure you have set a getter on your eloquent model.
+
+```php
+User::find(1)->get();
+```
+</Note>
+
 ---
 
 ### What It Does

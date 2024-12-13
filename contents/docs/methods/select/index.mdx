@@ -97,13 +97,3 @@ The current instance, allowing method chaining.
 | Single Column         | `query.select("name")`             | Retrieve one column        |
 | Multiple Columns      | `query.select(["name", "email"])`  | Retrieve multiple columns  |
 | Dynamic Columns Array | `query.select(columns)`            | Type-safe dynamic selection |
-
----
-
-## Summary
-
-- Use **single string values** for selecting one column.
-- Use **arrays of strings** for multiple columns.
-- Use **type-safe arrays** when defining column names dynamically.
-
-This ensures a clean, readable API for querying data while preserving type safety and flexibility. 🚀

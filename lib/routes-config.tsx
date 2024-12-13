@@ -9,6 +9,7 @@ import {
   HammerIcon,
   Layers3Icon,
   RouteIcon,
+  Scale3DIcon,
   SortAscIcon,
   TextSelectIcon,
 } from "lucide-react";
@@ -27,6 +28,15 @@ export const ROUTES: EachRoute[] = [
     title: "Installation",
     href: "/installation",
     icon: <BlocksIcon size={16} />,
+  },
+  {
+    icon: <Scale3DIcon size={16} />,
+    title: "Transformers",
+    href: "/transform",
+  },
+  {
+    title: "",
+    href: "",
   },
   {
     title: "",
@@ -87,10 +97,6 @@ export const ROUTES: EachRoute[] = [
         title: "Build",
         href: "/build",
       },
-      // {
-      //   title: "Query",
-      //   href: "/query",
-      // },
     ],
   },
   // {

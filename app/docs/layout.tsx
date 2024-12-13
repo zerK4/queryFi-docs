@@ -1,5 +1,4 @@
 import { Leftbar } from "@/components/leftbar";
-import { TooltipProvider } from "@/components/ui/tooltip";
 
 export default function DocsLayout({
   children,
@@ -7,11 +6,9 @@ export default function DocsLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <div className='flex items-start gap-8'>
+    <div className='flex sm:container mx-auto w-[90vw] items-start gap-8'>
       <Leftbar key='leftbar' />
-      <div className='flex-[5.25]'>
-        <TooltipProvider>{children}</TooltipProvider>
-      </div>
+      <div className='flex-[5.25]'>{children}</div>
     </div>
   );
 }

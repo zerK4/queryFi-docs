@@ -1,100 +1,110 @@
-## AriaDocs - Documentation Template
+---
+title: Installation
+---
 
-This feature-packed documentation template, built with Next.js, offers a sleek and responsive design, perfect for all your project documentation needs.
+Installation steps for `queryfi`.
 
-<img src="./public/public-og.png" />
+This documentation showcase how to install the `queryfi` packages and make use of them in you applications.
 
-<br/>
+---
 
-Here are all versions of the AriaDocs template, each crafted for specific use cases:
+This package is dedicated specially for `Laravel` applications as the server package is build for it.
 
+However, if you have a backend which can communicate with queries the frontend package can also be used.
 
-- **Advanced Docs:** A comprehensive template offering extensive features for in-depth documentation needs. Perfect for larger projects that require detailed explanations and advanced configurations.  
-  [Explore the Advanced Docs](https://github.com/nisabmohd/Aria-Docs/tree/master)
+---
 
-- **Lite Version:** A streamlined, no-frills template perfect for straightforward documentation needs.  
-  [Explore the Lite Version](https://github.com/nisabmohd/Aria-Docs/tree/minimal-docs)
+<Stepper>
+  <StepperItem title="Install queryfi package">
+  <Tabs defaultValue="client" className="pt-5 pb-1">
+  <TabsList>
+    <TabsTrigger value="client">Frontend</TabsTrigger>
+    <TabsTrigger value="server">Server</TabsTrigger>
+  </TabsList>
+  <TabsContent value="client">
+  Go ahead and open your frontend typescript app and run the following.
 
-- **Version with Versioning:** A powerful option for projects that require historical documentation tracking. Manage multiple versions of your docs effortlessly.  
-  [Check out the Versioning Feature](https://github.com/nisabmohd/Aria-Docs/tree/version_docs)
+    ```bash
+    npm install package-name
+    ```
 
-- **i18n Support Version (WIP):** Designed for international audiences, this version will offer comprehensive multilingual support.  
-  [Preview the i18n Support](https://github.com/nisabmohd/Aria-Docs/tree/i18n-support)
+  </TabsContent>
+  <TabsContent value="server">
+  Then open your backend and run this.
 
-### Quick Start
-
-You can create a new Ariadocs project using the command:
-
-```plaintext
-npx create-aria-doc <project-directory>
+```bash 
+npm install package-name
 ```
+  </TabsContent>
+</Tabs>
+    
+  </StepperItem>
+  <StepperItem title="Configuration">
+  Assuming you have your model whith which you want to work, we'll go with a simple approach, with direct controller 🤔, not the best approach, but fastest and easiest.
 
-### Expected Output
+  If you want to check a better approach and a better DX overall, read <a className="text-orange-500" href="/blog">this</a>
 
-When you run the CLI, you can expect an output similar to this:
+```php:UserController.php
 
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+use Z3rka\HasRelations\HasRelations;
+
+class UserController extends Controller
+{
+    # make use of this trait.
+    use HasRelations;
+
+    public function index(Request $request)
+    {
+      $model = User::getModel();
+      return $this->processModel($request, $model)->get();
+    }
+}
 ```
-Creating a new Ariadocs project in /path/to/your/project from the master branch...
-Cloning Master (Full Documentation)...
-Ariadocs project successfully created in /path/to/your/project!
+  </StepperItem>
+  <StepperItem title="Make use of it">
+    In your frontend, whatever it is, use the frontend package you installed.
 
-Next steps:
-1. Navigate to your project directory:
-   cd <project-directory>
-2. Install dependencies:
-   // To support React 19, package maintainers will need to test and update their packages to include React 19 as a peer dependency. This is already in progress.
-   npm install --force 
-3. Start the development server:
-   npm run dev
-```
+    ```typescript:file.tsx
+    import {createQuery} from 'package-name'
 
-## Getting Started
+    const query = createQuery<User>("/api/users")
+      .with(["posts"])
+      .where([
+        ["name", "like", "%Marisa%"],
+        ["id", ">", 10],
+      ])
+      .build();
 
-First, run the development server:
+    const { data } = await axios.get(query)
 
-```plaintext
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
-
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
-
-[![Deploy with Vercel](https://vercel.com/button)](https://vercel.com/new/clone?repository-url=https://github.com/nisabmohd/Aria-Docs)
-
-## Key Features
-
-| **Feature**                   | **Description**                                          |
-|-------------------------------|----------------------------------------------------------|
-| MDX Support                   | Write interactive documentation with MDX.                |
-| Nested Pages                  | Organize content in a nested, hierarchical structure.    |
-| Blog Section                  | Include a dedicated blog section.                        |
-| Table of Contents             | Auto-generated TOC for easy navigation.                  |
-| Pagination                    | Split content across multiple pages.                     |
-| Syntax Highlighting           | Highlight code for better readability.                   |
-| Code Line Highlighting & Titles | Highlight specific lines with descriptive titles.      |
-| Interactive Code Blocks       | Language-specific and interactive code display.          |
-| Custom Components             | Embed custom, reusable components in your docs.          |
-| Light & Dark Mode             | Toggle between light and dark themes.                    |
-| Search Functionality          | Quickly find content with a built-in search.             |
-| Code Switcher                 | Switch between code languages or variations.             |
-| Code Copy                     | Copy code blocks with a single click.                    |
-| TOC Observer Highlight        | Highlight active sections in the TOC as you scroll.      |
-| Static Site Generation        | Generate a static, high-performance site.                |
-| SEO-Optimized                 | Structured for optimal search engine indexing.           |
+    //response example
+    //     {
+    //     "id": 50,
+    //     "name": "Marques Kautzer",
+    //     "email": "garrett.kiehn@example.com",
+    //     "email_verified_at": "2024-12-10T16:16:18.000000Z",
+    //     "created_at": "2024-12-10T16:16:18.000000Z",
+    //     "updated_at": "2024-12-10T16:16:18.000000Z",
+    //     "posts": [
+    //         {
+    //             "id": 99,
+    //             "user_id": 50,
+    //             "name": "Florida Kuhlman DDS",
+    //             "status": "inactive",
+    //             "content": "Eaque est qui natus ipsa hic. Nihil molestiae excepturi eos. Quos voluptatem modi voluptatem officiis voluptas. Magnam consequatur quod modi corporis.",
+    //             "created_at": "2024-12-10T16:16:18.000000Z",
+    //             "updated_at": "2024-12-10T16:16:18.000000Z"
+    //         }
+    //     ]
+    // },
+    ```
+  </StepperItem>
+</Stepper>
 
 
-## Additional Themes
-
-<img src="./public/halloween.png" alt="halloween" />
-<img src="./public/nebula.png" alt="halloween" />
-<img src="./public/ocean.png" alt="halloween" />
