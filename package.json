@@ -1,7 +1,8 @@
 {
-  "name": "aria-docs",
+  "name": "queryfi",
   "version": "2.0.0",
-  "private": true,
+  "homepage": "https://queryfi.link/",
+  "description": "Meet **Queryfi** – the powerful package that enhances your API interactions with Laravel, offering the flexibility to build dynamic queries directly from your frontend, be it React or any other framework.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",

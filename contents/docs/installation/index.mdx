@@ -26,16 +26,16 @@ However, if you have a backend which can communicate with queries the frontend p
 
     <CodeBlock language="bash" title="Bash" >
       {
-          `npm install package-name`
+          `npm install queryfi`
       }
     </CodeBlock>
 
   </TabsContent>
   <TabsContent value="server">
-  Then open your backend and run this.
+  Then open your laravel backend and run this.
 
 ```bash 
-npm install package-name
+composer require z3rka/queryfi
 ```
   </TabsContent>
 </Tabs>
@@ -50,11 +50,11 @@ npm install package-name
 {
 `<?php
 
-namespace App\Http\Controllers;
+namespace App\\Http\\Controllers;
 
-use App\Models\User;
-use Illuminate\Http\Request;
-use Z3rka\HasRelations\HasRelations;
+use App\\Models\\User;
+use Illuminate\\Http\\Request;
+use Z3rka\\Queryfi\\HasRelations;
 
 class UserController extends Controller
 {
@@ -75,7 +75,7 @@ class UserController extends Controller
     In your frontend, whatever it is, use the frontend package you installed.
   <CodeBlock language="typescript" title="getUsers.ts">
   {
-  `import {createQuery} from 'package-name'
+  `import {createQuery} from 'queryfi'
 
     const query = createQuery<User>("/api/users", {
       baseUrl: "http://localhost:8000/" // don't mind the extra / as it will be cleaned.

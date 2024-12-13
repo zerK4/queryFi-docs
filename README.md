@@ -1,110 +1,72 @@
----
-title: Installation
----
+### **Introducing Queryfi: The Ultimate Query Builder for Your Laravel API**
 
-Installation steps for `queryfi`.
+Are you tired of constantly jumping between your frontend and backend just to adjust filters, sort, paginate, or query related data(sounded like a commercial 😂)?
 
-This documentation showcase how to install the `queryfi` packages and make use of them in you applications.
+Meet **Queryfi** – the powerful package that enhances your API interactions with Laravel, offering the flexibility to build dynamic queries directly from your frontend, be it React or any other framework.
 
----
+### **Why Queryfi?**
 
-This package is dedicated specially for `Laravel` applications as the server package is build for it.
-
-However, if you have a backend which can communicate with queries the frontend package can also be used.
+Laravel is an amazing framework with fine-grained control over database interactions, but when it comes to APIs, there’s often friction. You find yourself constantly switching between frontend and backend just to tweak a filter, sort order, or pagination. This back-and-forth slows down development and can lead to a less efficient workflow. **Queryfi** changes that. It allows you to perform advanced queries with ease, directly from your frontend, saving you time and reducing the complexity of interacting with the backend.
 
 ---
 
-<Stepper>
-  <StepperItem title="Install queryfi package">
-  <Tabs defaultValue="client" className="pt-5 pb-1">
-  <TabsList>
-    <TabsTrigger value="client">Frontend</TabsTrigger>
-    <TabsTrigger value="server">Server</TabsTrigger>
-  </TabsList>
-  <TabsContent value="client">
-  Go ahead and open your frontend typescript app and run the following.
+### **What Makes Queryfi Special?**
 
-    ```bash
-    npm install package-name
-    ```
+Queryfi streamlines API interactions by offering a rich set of features, allowing you to build, sort, paginate, and modify queries on the fly. No more manually adjusting API calls — Queryfi handles everything from complex filtering to related data fetching, making your API interactions smooth and efficient.
 
-  </TabsContent>
-  <TabsContent value="server">
-  Then open your backend and run this.
+#### **Key Features:**
+- **Dynamic Filtering**: Perform flexible `where` conditions with a variety of operators, directly in your frontend.
+- **Relation Handling**: Automatically include related models with `with()`, and customize those relations with advanced query modifiers.
+- **Flexible Ordering**: Order results by any column, and easily control sorting direction.
+- **Effortless Pagination**: Handle pagination with ease, controlling both the number of results per page and which page to display.
+- **Query Modifiers for Relations**: Apply filters and ordering to related data, without touching the main query.
+- **Limit Control**: Limit the number of results returned, all from the frontend.
+- **Custom Path Parameters**: Add dynamic path parameters to your API endpoints for even more flexibility.
 
-```bash 
-npm install package-name
+---
+
+### **How Does It Work?**
+
+Queryfi is built on a simple, intuitive class that allows you to build complex queries without writing custom API endpoints every time. Here’s how it works:
+
+#### **Example Usage**
+
+```typescript
+import { createQuery } from 'queryfi';
+
+const query = createQuery('/api/users', {
+  baseUrl: 'http://localhost:8000'
+})
+  .with(['posts', 'profile']) // Include related data
+  .where({ name: 'John' }) // Filter by name
+  .where([
+    ['age', '>=', 30],
+    ['email', 'like', '%doe%']
+  ]) // Filter by age and email pattern
+  .orderBy('name:desc') // Sort by name in descending order
+  .limit(10) // Limit results to 10
+  .paginate(10, 2) // Paginate with 10 results per page, on page 2
+
+const url = query.build(); // Build the final URL for the API request
+
+console.log(url);
 ```
-  </TabsContent>
-</Tabs>
-    
-  </StepperItem>
-  <StepperItem title="Configuration">
-  Assuming you have your model whith which you want to work, we'll go with a simple approach, with direct controller 🤔, not the best approach, but fastest and easiest.
 
-  If you want to check a better approach and a better DX overall, read <a className="text-orange-500" href="/blog">this</a>
+In the above example, **Queryfi** generates the following API URL dynamically:
 
-```php:UserController.php
-
-<?php
-
-namespace App\Http\Controllers;
-
-use App\Models\User;
-use Illuminate\Http\Request;
-use Z3rka\HasRelations\HasRelations;
-
-class UserController extends Controller
-{
-    # make use of this trait.
-    use HasRelations;
-
-    public function index(Request $request)
-    {
-      $model = User::getModel();
-      return $this->processModel($request, $model)->get();
-    }
-}
 ```
-  </StepperItem>
-  <StepperItem title="Make use of it">
-    In your frontend, whatever it is, use the frontend package you installed.
+GET /users?with=posts,profile&where[name]=John&where[age][gte]=30&orderBy[name]=desc&limit=10&page=2
+```
 
-    ```typescript:file.tsx
-    import {createQuery} from 'package-name'
+This clean, easy-to-read URL is ready for use in your frontend API calls.
 
-    const query = createQuery<User>("/api/users")
-      .with(["posts"])
-      .where([
-        ["name", "like", "%Marisa%"],
-        ["id", ">", 10],
-      ])
-      .build();
+---
 
-    const { data } = await axios.get(query)
+### **Fully Type-Safe and Extensible**
 
-    //response example
-    //     {
-    //     "id": 50,
-    //     "name": "Marques Kautzer",
-    //     "email": "garrett.kiehn@example.com",
-    //     "email_verified_at": "2024-12-10T16:16:18.000000Z",
-    //     "created_at": "2024-12-10T16:16:18.000000Z",
-    //     "updated_at": "2024-12-10T16:16:18.000000Z",
-    //     "posts": [
-    //         {
-    //             "id": 99,
-    //             "user_id": 50,
-    //             "name": "Florida Kuhlman DDS",
-    //             "status": "inactive",
-    //             "content": "Eaque est qui natus ipsa hic. Nihil molestiae excepturi eos. Quos voluptatem modi voluptatem officiis voluptas. Magnam consequatur quod modi corporis.",
-    //             "created_at": "2024-12-10T16:16:18.000000Z",
-    //             "updated_at": "2024-12-10T16:16:18.000000Z"
-    //         }
-    //     ]
-    // },
-    ```
-  </StepperItem>
-</Stepper>
+Queryfi is built with **TypeScript** to ensure that your API calls are always type-safe. This helps you catch errors early during development, so you never have to worry about incorrect data formats or missing fields.
 
+---
 
+### **Check out the Documentation:**
+Visit the official [Queryfi Documentation](#) to explore all the features, usage examples, and integration guides.

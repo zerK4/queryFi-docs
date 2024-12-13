@@ -54,7 +54,7 @@ function Hero() {
       </h1>
       <div className='flex flex-col gap-4 justify-start px-3'>
         <p className='text-start lg:!text-2xl dark:text-neutral-300 text-neutral-800'>
-          Put your queryes to work!
+          Put your queries to work!
         </p>
         <div className='w-full justify-start flex'>
           <Link
