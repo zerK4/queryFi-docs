@@ -25,9 +25,6 @@ export default async function DocsPage(props: PageProps) {
         <DocsBreadcrumb paths={slug} />
         <Typography>
           <h1 className='text-3xl !-mt-0.5'>{res.frontmatter.title}</h1>
-          <p className='-mt-4 text-muted-foreground text-[16.5px]'>
-            {res.frontmatter.description}
-          </p>
           <div>{res.content}</div>
           <Pagination pathname={pathName} />
         </Typography>

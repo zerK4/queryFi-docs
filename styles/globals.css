@@ -1,5 +1,10 @@
 @import url("./syntax.css");
 
+@font-face {
+  font-family: "BadeenDisplay";
+  src: url("../app/BadeenDisplay-Regular.ttf") format("ttf");
+}
+
 :root {
   font-variant-ligatures: none;
 }

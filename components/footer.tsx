@@ -1,4 +1,4 @@
-import { BetweenHorizonalStartIcon } from "lucide-react";
+import Image from "next/image";
 import Link from "next/link";
 
 export function Footer() {
@@ -6,9 +6,7 @@ export function Footer() {
     <footer className='w-full h-16 border-t'>
       <div className='container flex flex-wrap items-center justify-center h-full gap-4 py-3 text-sm sm:justify-between sm:gap-0 text-muted-foreground sm:py-0 max-sm:px-4'>
         <div className='flex items-center gap-3'>
-          <span className='grid w-10 h-10 border border-dashed rounded-full place-content-center'>
-            <BetweenHorizonalStartIcon size={20} />
-          </span>{" "}
+          <Image src={"/logo.png"} alt='queryFi logo' height={30} width={30} />
           queryfi
         </div>
         <p className='text-center'>

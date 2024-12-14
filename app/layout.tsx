@@ -4,7 +4,6 @@ import { Navbar } from "@/components/navbar";
 import { Space_Mono, Space_Grotesk } from "next/font/google";
 import { Footer } from "@/components/footer";
 import "@/styles/globals.css";
-import "@/styles/monaco.css";
 import { TooltipProvider } from "@/components/ui/tooltip";
 
 const GeistSans = Space_Grotesk({

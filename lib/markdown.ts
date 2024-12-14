@@ -19,6 +19,7 @@ import Link from "@/components/markdown/link";
 import Outlet from "@/components/markdown/outlet";
 import { page_routes, ROUTES } from "./routes-config";
 import CodeBlock from "@/components/markdown/codeBlock";
+import { Button } from "@/components/ui/button";
 
 // add custom components
 const components: any = {
@@ -34,6 +35,7 @@ const components: any = {
   a: Link,
   Outlet,
   CodeBlock,
+  Button,
 };
 
 // can be used for other pages like blogs, Guides etc
@@ -190,6 +192,10 @@ export type BlogMdxFrontmatter = BaseMdxFrontmatter & {
   date: string;
   authors: Author[];
   cover: string;
+  footerLinks?: {
+    name: string;
+    url: string;
+  }[];
 };
 
 export async function getAllBlogStaticPaths() {

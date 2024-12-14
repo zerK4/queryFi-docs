@@ -1,0 +1,300 @@
+---
+title: "Designing a Scalable Repository Structure in Laravel with queryFi"
+description: "Learn how to build a rock-solid repository structure in Laravel using queryFi. Simplify your API queries, boost your workflow, and transform your backend like a pro!"
+date: 14-12-2024
+authors:
+  - avatar: "https://avatars.githubusercontent.com/u/59478289?v=4"
+    handle: zerk4
+    username: Sebastian Pavel
+    handleUrl: "https://github.com/zerk4"
+cover: "/cover-1.png"
+footerLinks:
+  - url: "https://www.linkedin.com/in/s-pavel/"
+    name: "Linkedin"
+  - url: "https://github.com/zerk4/"
+    name: "Github"
+  - url: "https://x.com/s_pav3l/"
+    name: "X"
+---
+
+## Introduction
+
+When I was starting a new Laravel project, I often wondered what structure I should use. 
+Laravel is very well-structured, don't get me wrong, making it hard to mess things up. 
+However, there is a catch, how do we avoid putting all the logic we need into a controller, such as `UserController.php`?
+In this article, we'll focus on this issue. I'll share my preferred structure to cover my use cases, along with some best practices, and explain how to integrate queryFi.
+
+---
+
+## Getting started
+
+Since you’re here, I’ll assume you already have a **Laravel** project or know how to create one, so we can skip that step. Just make sure the API is set up.
+
+We’ll be using the following structure:
+
+```text
+app
+├── Repositories
+|   ├── Interfaces
+|   |   ├── EloquentRepositoryInterface.php
+|   └── Eloquent
+|       ├── BaseRepository.php
+|       └── UserRepository.php
+├── Resources
+    ├── BaseResource.php
+    └── ExtendedJsonResource.php
+```
+
+<Note type="success">
+You can find the **Resources** folder [here](https://gist.github.com/zerK4/321e37c39da4fcf823364bc4510aa181#file-baseresource-php),
+plus a custom logger.
+</Note>
+
+---
+
+#### 1. Install queryFi
+```bash
+# Backend
+composer require z3rka/queryfi
+
+# Frontend
+npm i queryfi
+```
+
+---
+
+#### 2. Add repository Interfaces
+
+```php:EloquentRepositoryInterface.php
+<?php
+
+namespace App\Repositories\Interfaces;
+
+use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Http\Request;
+
+interface EloquentRepositoryInterface
+{
+    public function create(array $attributes = [], ?string $successMessage, ?string $errorMessage): JsonResource;
+
+    public function all(Request $request, ?string $errorMessage): JsonResource;
+
+    public function one(Request $request, Model $model, ?string $errorMessage): JsonResource;
+
+    public function update(Request $request, Model $model, ?string $successMessage, ?string $errorMessage): JsonResource;
+
+    public function destroy(Request $request, ?string $successMessage, ?string $errorMessage): JsonResource;
+}
+
+```
+
+---
+
+3. #### Add the base resource class
+
+I’ll add only three methods here to keep things clean and avoid cluttering the space with repetitive code. 
+You can find the rest [here](https://gist.github.com/zerK4/321e37c39da4fcf823364bc4510aa181#file-baserepository-php).
+
+```php:BaseResource.php showLineNumbers {40,61}
+<?php
+
+namespace App\Repositories\Eloquent;
+
+use Z3rka\Queryfi\HasRelations;
+
+class BaseRepository implements EloquentRepositoryInterface {
+    use HasRelations;
+
+    public function __construct(protected Model $model)
+    {
+        //
+    }
+
+    public function create(array $attributes = [], ?string $successMessage, ?string $errorMessage): BaseResource
+    {
+        try {
+            return new BaseResource(
+                true,
+                $successMessage,
+                $this->model->create($attributes)
+            );
+        } catch (Exception $e) {
+            return new BaseResource(
+                false,
+                $errorMessage,
+                [
+                    'error' => $e
+                ]
+            );
+        }
+    }
+
+    public function all(Request $request, ?string $errorMessage): BaseResource
+    {
+        try {
+            return new BaseResource(
+              true, 
+              'Success', 
+              $this->processModel($request, $this->model)
+            );
+        } catch (Exception $e) {
+            $this->spitError($e);
+            return new BaseResource(
+                false,
+                "Fail",
+                $this->model->get(),
+                [
+                    "error" => $e,
+                ]
+            );
+        }
+    }
+
+    public function one(Request $request, Model $model, ?string $errorMessage): BaseResource
+    {
+        try {
+            return new BaseResource(
+              true, 
+              "success", 
+              $this->processModel($request, $model)
+            )
+        } catch (Exception $e) {
+            $this->spitError($e);
+            return new BaseResource(
+                false,
+                "Fail",
+                $model,
+                [
+                    "error" => $e,
+                ]
+            );
+        }
+    }
+}
+```
+
+There are 2 highlighted lines, 40 and 61.
+Normally, to return something from a model, you’d have to use
+`->get()` for `all()` or `->find(1)->first()`. 
+But when using the HasRelations trait from queryFi, you don’t need to call 
+`get()` or fetch the first item manually—it handles that for you automatically 
+based on the parameters you set up in the frontend.
+
+---
+
+4. #### User repository
+```php:UserRepository.php
+<?php
+
+namespace App\Repositories\Eloquent;
+use App\Models\User;
+use Z3rka\Queryfi\HasRelations;
+
+class UserRepository extends BaseRepository
+{
+    use HasRelations;
+
+    public function __construct(User $model)
+    {
+        parent::__construct($model);
+    }
+}
+```
+
+---
+
+5. #### User controller
+
+```php:UserController.php
+<?php
+
+namespace App\Http\Controllers;
+
+use Illuminate\Http\Request;
+use App\Repositories\Eloquent\UserRepository;
+
+class UserController extends Controller
+{
+    public function __construct(public UserRepository $userRepository)
+    {
+    }
+
+    public function index(Request $request)
+    {
+      return $this->userRepository
+                  ->all($request, "Ooops, there was an error fetching all the users.")
+    }
+
+    public function show(Request $request, User $user)
+    {
+      return $this->userRepository->one(
+            $request,
+            $user,
+            "Ooops, there was an error fetching the user."
+        );
+    }
+}
+```
+
+---
+
+6. #### The api route
+```php
+Route::resource('users', UserController::class)->only(['index', 'show'])
+```
+
+---
+
+Once we have everything set up, we can make requests from the browser by passing query parameters directly, like:
+```text
+url?where[name]=john&select=name&getter=first
+```
+
+Alternatively, we can use the `queryFi` TypeScript package on the frontend for a cleaner approach.
+
+```ts
+import { createQuery } from "queryfi";
+
+const query = createQuery('/api/users', {
+    baseUrl: "http://localhost:8000"
+  })
+  .where({
+    id: 1
+  })
+  .first() // will return an object with the user if it exists.
+```
+
+The generated query will look like
+```text
+http://localhost:8000/api/users?where[id]=1&getter=first
+```
+
+This piece of code will return the user with `id = 1`.
+When you use `.find()`, the response will automatically be an object.
+If you use `.get()`, it will return an array.
+
+You can try it out in the [playground](https://queryfi.link) to see how the response looks.
+
+Since we’re using the HasRelations trait, we can chain frontend queries to transform the data directly on the backend before it’s returned, as shown here.
+
+```ts
+import { createQuery } from "queryfi";
+
+const query = createQuery('/api/users', {
+    baseUrl: "http://localhost:8000"
+  })
+  .where({
+    id: 1
+  })
+  .select(['email', 'id', 'name'])
+  .get() // will return an array with one entry if it exists.
+```
+
+For more methods you can use, check out the the [queryFi documentation](https://www.queryfi.link/docs/methods/path)
+
+---
+
+#### END
+And that’s it! 🎉 Now you’ve got a solid and powerful starting point to build your APIs like a pro. 
+Go ahead, flex those coding muscles, and make something awesome! 🚀💻

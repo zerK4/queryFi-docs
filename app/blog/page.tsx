@@ -1,6 +1,11 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Author, BlogMdxFrontmatter } from "@/lib/markdown";
-import { formatDate2 } from "@/lib/utils";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
+import { Author, BlogMdxFrontmatter, getAllBlogs } from "@/lib/markdown";
+import { formatDate2, stringToDate } from "@/lib/utils";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,11 +15,9 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogIndexPage() {
-  // const blogs = (await getAllBlogs()).sort(
-  //   (a, b) => stringToDate(b.date).getTime() - stringToDate(a.date).getTime()
-  // );
-
-  const blogs: any[] = [];
+  const blogs = (await getAllBlogs()).sort(
+    (a, b) => stringToDate(b.date).getTime() - stringToDate(a.date).getTime()
+  );
 
   return (
     <div className='w-full mx-auto flex flex-col gap-1 sm:min-h-[91vh] min-h-[88vh] pt-2'>
@@ -77,20 +80,24 @@ function AvatarGroup({ users, max = 4 }: { users: Author[]; max?: number }) {
   return (
     <div className='flex items-center'>
       {displayUsers.map((user, index) => (
-        <Avatar
-          key={user.username}
-          className={`inline-block border-2 w-9 h-9 border-background ${
-            index !== 0 ? "-ml-3" : ""
-          } `}
-        >
-          <AvatarImage src={user.avatar} alt={user.username} />
-          <AvatarFallback>
-            {user.username.slice(0, 2).toUpperCase()}
-          </AvatarFallback>
-        </Avatar>
+        <Tooltip key={index}>
+          <TooltipTrigger asChild>
+            <Avatar
+              className={`inline-block w-9 h-9 border ${
+                index !== 0 ? "-ml-3" : ""
+              } `}
+            >
+              <AvatarImage src={user.avatar} alt={user.username} />
+              <AvatarFallback>
+                {user.username.slice(0, 2).toUpperCase()}
+              </AvatarFallback>
+            </Avatar>
+          </TooltipTrigger>
+          <TooltipContent>{user.username}</TooltipContent>
+        </Tooltip>
       ))}
       {remainingUsers > 0 && (
-        <Avatar className='inline-block -ml-3 transition-transform border-2 border-background hover:translate-y-1'>
+        <Avatar className='inline-block -ml-3 transition-transform border-background hover:translate-y-1'>
           <AvatarFallback>+{remainingUsers}</AvatarFallback>
         </Avatar>
       )}

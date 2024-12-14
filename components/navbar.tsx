@@ -1,9 +1,5 @@
 import { ModeToggle } from "@/components/theme-toggle";
-import {
-  BetweenHorizonalStartIcon,
-  GithubIcon,
-  TwitterIcon,
-} from "lucide-react";
+import { GithubIcon, TwitterIcon } from "lucide-react";
 import Link from "next/link";
 import { buttonVariants } from "./ui/button";
 import Search from "./search";
@@ -12,6 +8,7 @@ import { SheetLeftbar } from "./leftbar";
 import { SheetClose } from "@/components/ui/sheet";
 import { cn } from "@/lib/utils";
 import { page_routes } from "@/lib/routes-config";
+import Image from "next/image";
 
 export const NAVLINKS = [
   {
@@ -72,7 +69,8 @@ export function Logo() {
   return (
     <Link href='/' className='flex items-center gap-2.5'>
       <h2 className={cn("text-md font-bold font-code flex items-center gap-2")}>
-        <BetweenHorizonalStartIcon size={20} /> queryfi
+        <Image src={"/logo.png"} alt='queryFi logo' height={30} width={30} />{" "}
+        queryfi
       </h2>
     </Link>
   );
