@@ -1,5 +1,5 @@
 import { Typography } from "@/components/typography";
-import { Button, buttonVariants } from "@/components/ui/button";
+import { buttonVariants } from "@/components/ui/button";
 import { Author, getAllBlogStaticPaths, getBlogForSlug } from "@/lib/markdown";
 import { ArrowLeftIcon } from "lucide-react";
 import Link from "next/link";
@@ -79,9 +79,15 @@ export default async function BlogPage(props: PageProps) {
             <Separator className='my-10 dark:bg-zinc-700 bg-zinc-200' />
             <div className=''>
               {res.frontmatter.footerLinks?.map((link, i) => (
-                <Button variant={"ghost"} key={i}>
+                <Link
+                  href={link.url}
+                  className={buttonVariants({
+                    variant: "ghost",
+                  })}
+                  key={i}
+                >
                   {link.name}
-                </Button>
+                </Link>
               ))}
             </div>
           </>
