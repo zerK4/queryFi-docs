@@ -17,7 +17,7 @@ export default function Pre({
   const language = className?.replace(/language-/, "");
 
   return (
-    <div className='rounded-lg border dark:border-neutral-800 border-neutral-200 overflow-hidden my-4 relative'>
+    <div className='rounded-xl border dark:border-neutral-800 border-neutral-200 overflow-hidden my-4 relative'>
       <div className='absolute right-2 top-2'>
         <Copy content={raw ?? ""} />
       </div>

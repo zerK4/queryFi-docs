@@ -20,12 +20,7 @@ export default function Copy({ content }: { content: string }) {
   return (
     <Tooltip open={isCopied} delayDuration={0}>
       <TooltipTrigger asChild>
-        <Button
-          variant='outline'
-          className='border'
-          size='xs'
-          onClick={handleCopy}
-        >
+        <Button variant='outline' size='xs' onClick={handleCopy}>
           {!isCopied ? (
             <CopyIcon className='w-3 h-3' />
           ) : (

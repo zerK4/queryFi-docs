@@ -1,16 +1,11 @@
-import { useState, useCallback, useEffect, RefObject } from "react";
+import { useState, useCallback, useEffect } from "react";
 
 interface UseSearchHookProps {
   resultsLength: number;
   onSelect: (index: number) => void;
-  inputRef?: RefObject<HTMLInputElement>;
 }
 
-export function useSearch({
-  resultsLength,
-  onSelect,
-  inputRef,
-}: UseSearchHookProps) {
+export function useSearch({ resultsLength, onSelect }: UseSearchHookProps) {
   const [activeIndex, setActiveIndex] = useState(-1);
 
   const handleKeyDown = useCallback(
@@ -35,7 +30,7 @@ export function useSearch({
         }
       }
     },
-    [resultsLength, activeIndex, onSelect]
+    [resultsLength, activeIndex, onSelect, setActiveIndex]
   );
 
   useEffect(() => {

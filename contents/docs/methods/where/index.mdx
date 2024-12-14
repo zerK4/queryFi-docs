@@ -223,17 +223,17 @@ where[id][whereNotBetween][]=10&where[id][whereNotBetween][]=20
 
 | Condition                 | Generated Query                                                                            | Description                                             |
 |-------------------------------|-----------------------------------------------------------------------------------------------|-------------------------------------------------------------|
-| `["id", "=", 10]`              | `where[id]=10`                                                                                 | Exact match (Equality)                                      |
-| `["age", ">", 30]`             | `where[age]>30`                                                                                 | Greater than operator                                        |
-| `["age", "<", 30]`             | `where[age]<30`                                                                                 | Less than operator                                           |
-| `["age", ">=", 30]`            | `where[age]>=30`                                                                                | Greater than or equal operator                               |
-| `["age", "<=", 30]`            | `where[age]<=30`                                                                                | Less than or equal operator                                  |
-| `["age", "!=", 30]`            | `where[age]!==30`                                                                                | Not equal operator                                           |
-| `["name", "like", "%john%"]`   | `where[name][like]=%john%`                                                                       | Pattern matching with LIKE operator                          |
-| `["name", "not like", "%admin%"]` | `where[name][not+like]=%admin%`                                                                  | Exclude pattern matching with NOT LIKE operator              |
-| `["id", "whereIn", [10, 20, 30]]` | `where[id][whereIn][]=10&where[id][whereIn][]=20&where[id][whereIn][]=30`                     | Column value is in a set of values (`IN` condition)          |
-| `["id", "whereNotIn", [10, 20, 30]]` | `where[id][whereNotIn][]=10&where[id][whereNotIn][]=20&where[id][whereNotIn][]=30`             | Column value is not in a set of values (`NOT IN` condition)  |
-| `["id", "whereBetween", [10, 20]]` | `where[id][whereBetween][]=10&where[id][whereBetween][]=20`                                    | Column value is between two numbers (`BETWEEN` condition)    |
-| `["id", "whereNotBetween", [10, 20]]` | `where[id][whereNotBetween][]=10&where[id][whereNotBetween][]=20`                              | Column value is not between two numbers (`NOT BETWEEN`)      |
+| ["id", `=`, 10]              | where[id]=10                                                                                 | Exact match (Equality)                                      |
+| ["age", `>`, 30]             | where[age][`>`]30                                                                                 | Greater than operator                                        |
+| ["age", `<`, 30]             | where[age][`<`]30                                                                                 | Less than operator                                           |
+| ["age", `>=`, 30]            | where[age][`>=`]30                                                                                | Greater than or equal operator                               |
+| ["age", `<=`, 30]            | where[age][`<=`]30                                                                                | Less than or equal operator                                  |
+| ["age", `!=`, 30]            | where[age][`!=`]30                                                                                | Not equal operator                                           |
+| ["name", `like`, "%john%"]   | where[name][`like`]=%john%                                                                       | Pattern matching with LIKE operator                          |
+| ["name", `not like`, "%admin%"] | where[name][`not like`]=%admin%                                                                  | Exclude pattern matching with NOT LIKE operator              |
+| ["id", `whereIn`, [10, 20, 30]] | where[id][whereIn][]=10&where[id][whereIn][]=20&where[id][whereIn][]=30                     | Column value is in a set of values (`IN` condition)          |
+| ["id", `whereNotIn`, [10, 20, 30]] | where[id][whereNotIn][]=10&where[id][whereNotIn][]=20&where[id][whereNotIn][]=30             | Column value is not in a set of values (`NOT IN` condition)  |
+| ["id", `whereBetween`, [10, 20]] | where[id][whereBetween][]=10&where[id][whereBetween][]=20                                    | Column value is between two numbers (`BETWEEN` condition)    |
+| ["id", `whereNotBetween`, [10, 20]] | where[id][whereNotBetween][]=10&where[id][whereNotBetween][]=20                              | Column value is not between two numbers (`NOT BETWEEN`)      |
 
 ---

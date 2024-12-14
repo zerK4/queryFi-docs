@@ -1,10 +1,5 @@
 @import url("./syntax.css");
 
-@font-face {
-  font-family: "BadeenDisplay";
-  src: url("../app/BadeenDisplay-Regular.ttf") format("ttf");
-}
-
 :root {
   font-variant-ligatures: none;
 }
@@ -15,7 +10,7 @@
 
 @layer base {
   :root {
-    --background: 0 0% 100%;
+    --background: 220 14% 96%;
     --foreground: 20 14.3% 4.1%;
     --card: 0 0% 100%;
     --card-foreground: 20 14.3% 4.1%;
@@ -188,6 +183,10 @@ pre > code {
 
 .highlight-comp > code {
   background-color: transparent !important;
+}
+
+code {
+  @apply !border-zinc-600 !py-1.5 !px-2 !rounded-xl;
 }
 
 /* Add this CSS for a simple spinner loader */

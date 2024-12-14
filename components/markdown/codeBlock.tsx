@@ -43,15 +43,15 @@ export default function CodeBlock({
   const { code, language: detectedLanguage } = extractCodeAndLanguage();
 
   return (
-    <div className='relative my-4 dark:bg-[#0b0e14] w-full bg-neutral-50 rounded-lg border dark:border-neutral-800 border-neutral-200 overflow-hidden'>
+    <div className='relative my-4 dark:bg-[#0b0e14] w-full bg-neutral-50 rounded-xl border dark:border-neutral-800 border-neutral-200 overflow-hidden'>
       {title && (
-        <div className='flex items-center px-4 py-2 h-fit justify-between bg-neutral-50 dark:bg-[#0b0e14] border-b dark:border-neutral-800 border-neutral-200'>
+        <div className='flex relative items-center px-4 py-2 h-12 justify-between bg-neutral-50 dark:bg-[#0b0e14] border-b dark:border-neutral-800 border-neutral-200'>
           <div className='flex items-center gap-2'>
             <span className='text-sm font-medium text-neutral-700 dark:text-neutral-300'>
               {title}
             </span>
           </div>
-          <div className='hidden sm:block'>
+          <div className='hidden absolute top-2 right-2 sm:block'>
             <Copy content={raw ?? (children as string)} />
           </div>
         </div>

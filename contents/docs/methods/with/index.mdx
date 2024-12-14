@@ -174,7 +174,7 @@ query.with(relations);
 
 | **Format**            | **Example**                     | **Use Case**               |
 |----------------------|----------------------------------|----------------------------|
-| Single Relation       | `query.with("author")`          | Load one related model     |
-| Nested Relation       | `query.with("author.comments")`          | Load one related model and it's related relation     |
-| Multiple Relations    | `query.with(["author", "tags"])` | Load multiple models       |
-| Dynamic Relations     | `query.with(relations)`         | Type-safe relation loading |
+| Single Relation       | query.with("author")          | Load one related model     |
+| Nested Relation       | query.with("author.comments")          | Load one related model and it's related relation     |
+| Multiple Relations    | query.with(["author", "tags"]) | Load multiple models       |
+| Dynamic Relations     | query.with(relations)         | Type-safe relation loading |

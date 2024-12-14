@@ -92,8 +92,8 @@ The `page` method is used to set the page number when pagination has already bee
 
 ### Usage Cases Table
 
-| Format                  | Example                                  | Query Parameter                                    | Query String                           |
-|-------------------------|------------------------------------------|---------------------------------------------------|----------------------------------------|
-| Paginate with perPage    | `query.paginate(10)`                     | `{"paginate": 10}`                                | `?paginate=10`                         |
-| Paginate with perPage & page | `query.paginate(10, 2)`                | `{"paginate": 10, "page": 2}`                     | `?paginate=10&page=2`                  |
-| Set page number          | `query.page(3)`                          | `{"page": 3}`                                    | `?page=3`                              |
+| Format                  | Example                                   | Query String                           |
+|-------------------------|------------------------------------------|----------------------------------------|
+| Paginate with perPage    | query.paginate(10)                    | ?paginate=10                         |
+| Paginate with perPage & page | query.paginate(10, 2)                | ?paginate=10&page=2                  |
+| Set page number          | query.page(3)                       | ?page=3                              |

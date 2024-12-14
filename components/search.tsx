@@ -51,7 +51,6 @@ export default function Search() {
   const { activeIndex } = useSearch({
     resultsLength: filteredItems.length,
     onSelect: handleResultSelect,
-    inputRef,
   });
 
   const highlightMatch = (text: string) => {

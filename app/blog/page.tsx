@@ -49,7 +49,7 @@ function BlogCard({
   return (
     <Link
       href={`/blog/${slug}`}
-      className='flex flex-col gap-2 items-start border rounded-md py-5 px-3 min-h-[400px]'
+      className='flex flex-col gap-2 items-start border rounded-md py-5 px-3 min-h-[400px] hover:border-zinc-600 ease-in-out duration-300'
     >
       <h3 className='-mt-1 font-semibold text-md pr-7'>{title}</h3>
       <div className='w-full'>

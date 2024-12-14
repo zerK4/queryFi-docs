@@ -70,7 +70,7 @@ export default async function BlogPage(props: PageProps) {
             alt='cover'
             width={700}
             height={400}
-            className='w-full h-[400px] rounded-md border object-cover'
+            className='w-full h-[400px] rounded-xl border object-cover'
           />
         </div>
         <Typography>{res.content}</Typography>
