@@ -69,4 +69,4 @@ Queryfi is built with **TypeScript** to ensure that your API calls are always ty
 ---
 
 ### **Check out the Documentation:**
-Visit the official [Queryfi Documentation](#) to explore all the features, usage examples, and integration guides.
+Visit the official [Queryfi Documentation](https://queryfi.link) to explore all the features, usage examples, and integration guides.

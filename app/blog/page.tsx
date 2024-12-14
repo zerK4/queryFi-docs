@@ -1,6 +1,6 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Author, BlogMdxFrontmatter } from "@/lib/markdown";
-import { formatDate2 } from "@/lib/utils";
+import { Author, BlogMdxFrontmatter, getAllBlogs } from "@/lib/markdown";
+import { formatDate2, stringToDate } from "@/lib/utils";
 import { Metadata } from "next";
 import Image from "next/image";
 import Link from "next/link";
@@ -10,9 +10,9 @@ export const metadata: Metadata = {
 };
 
 export default async function BlogIndexPage() {
-  // const blogs = (await getAllBlogs()).sort(
-  //   (a, b) => stringToDate(b.date).getTime() - stringToDate(a.date).getTime()
-  // );
+  const blogs = (await getAllBlogs()).sort(
+    (a, b) => stringToDate(b.date).getTime() - stringToDate(a.date).getTime()
+  );
   return (
     <div className='w-full mx-auto flex flex-col gap-1 sm:min-h-[91vh] min-h-[88vh] pt-2'>
       <div className='flex flex-col gap-2 mb-7'>
@@ -24,7 +24,7 @@ export default async function BlogIndexPage() {
         </p>
       </div>
       <div className='grid grid-cols-1 gap-4 mb-5 md:grid-cols-3 sm:grid-cols-2 sm:gap-8'>
-        {[].map((blog: any) => (
+        {blogs.map((blog: any) => (
           <BlogCard {...blog} slug={blog.slug} key={blog.slug} />
         ))}
       </div>
