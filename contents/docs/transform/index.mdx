@@ -36,7 +36,7 @@ An object with the query before being converted to url.
 
 ```ts
 const query = createQuery<Transaction>('/api/transactions', {
-  transformParams: (params) => {
+  transformer: (params) => {
     console.group('Query Parameters');
     console.log('Original Params:', params);
     console.time('Query Execution');
@@ -52,7 +52,7 @@ const query = createQuery<Transaction>('/api/transactions', {
 
 ```ts
 const query = createQuery<User>('/api/users', {
-  transformParams: (params) => {
+  transformer: (params) => {
     // Convert camelCase to snake_case for backend compatibility
     return Object.fromEntries(
       Object.entries(params).map(([key, value]) => [
@@ -68,7 +68,7 @@ const query = createQuery<User>('/api/users', {
 
 ```ts
 const query = createQuery<Product>('/api/products', {
-  transformParams: (params) => {
+  transformer: (params) => {
     // Add extra filter based on user's role
     const userRole = getCurrentUserRole();
     

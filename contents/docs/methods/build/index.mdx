@@ -21,7 +21,7 @@ User::find(1)->get();
    - If there are any path parameters specified, it replaces placeholders (e.g., `{key}`) in the URL with the corresponding values. The values are URL-encoded to ensure they are safe to use in a URL.
 
 2. **Parameter Transformation**:
-   - If the `transformParams` option is provided, it will apply the function to transform the query parameters before appending them to the URL.
+   - If the `transformer` option is provided, it will apply the function to transform the query parameters before appending them to the URL.
 
 3. **Parameter Validation**:
    - If a validation schema is provided, it will attempt to validate the query parameters using the schema before continuing with URL construction. If validation fails, an error is thrown.
