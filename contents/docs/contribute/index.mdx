@@ -1,0 +1,122 @@
+---
+title: Contribute
+---
+
+Thank you for considering contributing to queryFi! We, well, I welcome contributions from the community to help improve the project.
+
+<Note>
+This steps apply for [queryfi-ts](https://github.com/zerK4/queryfi-ts) and [queryfi-php](https://github.com/zerK4/queryfi-php)
+</Note>
+
+## How to Contribute
+
+1. **Fork the Repository:**
+   - Click the "Fork" button on GitHub to create your copy of the repository.
+
+2. **Clone the Fork:**
+   ```bash
+   git clone your-fork
+   ```
+
+3. **Create a Branch:**
+   - Use a descriptive branch name:
+   ```bash
+   git checkout -b feature/your-feature-name
+   ```
+
+4. **Make Changes:**
+   - Make your changes following the project's coding standards.
+
+5. **Run Tests:**
+   - If you added a new method make sure to create a test for it in /tests
+   ```bash
+   npm test
+   ```
+
+6. **Commit Changes:**
+   - Use [Conventional Commits](https://www.conventionalcommits.org/):
+   ```bash
+   git commit -m "feat: add new feature description"
+   ```
+
+7. **Push Changes:**
+   ```bash
+   git push origin feature/your-feature-name
+   ```
+
+8. **Create a Pull Request:**
+   - Go to the repository on GitHub.
+   - Click "New Pull Request" and follow the instructions.
+
+---
+
+## Development Setup
+
+<Tabs defaultValue="ts" className="pt-5 pb-1">
+  <TabsList>
+    <TabsTrigger value="ts">Typescript package</TabsTrigger>
+    <TabsTrigger value="php">Laravel package</TabsTrigger>
+  </TabsList>
+  <TabsContent value="ts">
+    1. **Install Dependencies:**
+   ```bash
+   npm install
+   ```
+
+2. **Add the package locally to your project:**
+
+    a. On your fork folder:
+      ```bash
+      npm link
+      ```
+        
+    b. In your project folder:
+      ```bash
+      npm link your-package
+      ```
+    c. Use the package
+      ```ts
+      import { createQuery } from 'your-package';
+      ```
+
+3. **Run Tests Locally:**
+```bash
+npm test
+```
+  </TabsContent>
+  <TabsContent value="php">
+1.Add the package to your `composer.json`
+
+```json
+{
+    "repositories": [
+        {
+            "type": "path",
+            "url": "/path/to/your/local/package"
+        }
+    ]
+}
+   ```
+
+2. Require the package into your laravel application
+```bash
+composer require z3rka/queryfi:dev-main
+```
+  </TabsContent>
+</Tabs>
+
+---
+
+## Issue Reporting
+
+- If you have new ideas or you just found something not working as expected, [open an issue](https://github.com/zerK4/queryfi-ts/issues/new). 😊
+
+---
+
+## Additional Notes
+
+- All changes must pass linting and tests.
+- Follow the project's folder structure and naming conventions.
+
+Thank you for contributing! 🎉
+

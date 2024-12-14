@@ -99,10 +99,14 @@ export const ROUTES: EachRoute[] = [
       },
     ],
   },
-  // {
-  //   title: "",
-  //   href: "",
-  // },
+  {
+    title: "",
+    href: "",
+  },
+  {
+    title: "Contribute",
+    href: "/contribute",
+  },
   // {
   //   title: "Getting Started",
   //   href: "/getting-started",
