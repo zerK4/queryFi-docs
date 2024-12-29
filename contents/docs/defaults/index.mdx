@@ -1,0 +1,58 @@
+---
+title: Defaults
+description: queryFi default values
+---
+
+In here we'll see how we can set some default values for our queries.
+
+---
+
+If you don't want to set defaults (usefull if you don't want to write the base url or api version all the time), you can skip this and import `createQuery` directly from `queryfi`.
+
+#### 1. Create a utils file to hold the logic.
+
+```typescript:/lib/queryfi.ts
+import { API_VERSION } from "@/constants";
+import { QueryBuilder } from "queryfi";
+import { QueryBuilderOptions } from "queryfi/dist/types";
+
+QueryBuilder.setDefaultOptions({
+  baseUrl: process.env.NEXT_PUBLIC_BACKEND_URL,
+  // You can access the transformers here too,
+  transformer(params) {
+  // Do something with this data.
+    return params;
+  },
+  defaultPathParams: { api_version: API_VERSION },
+});
+
+export function queryfi<T extends Record<string, any>>(
+  basePath: string,
+  options?: QueryBuilderOptions
+): QueryBuilder<T> {
+  return new QueryBuilder<T>(basePath, options);
+}
+```
+
+#### 2. Make use of it
+
+```typescript
+export const getAllRoutes = async () => {
+  try {
+    const query = queryfi<IRoute>(`/api/{api_version}/routes`)
+      .with(["stations", "parentRoute"])
+      .get();
+
+    const { data } = await fetchServer({
+      url: query,
+    });
+
+    return data;
+  } catch (err) {
+    console.log(err, "Ooops, there was an error!");
+  }
+};
+```
+
+
+If you still want to use the clasic method after doing this you can still `import { createQuery } from "queryfi";`

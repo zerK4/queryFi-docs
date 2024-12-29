@@ -2,6 +2,7 @@
 
 import {
   BarChartIcon,
+  Barcode,
   BlocksIcon,
   BracketsIcon,
   ChevronsRightIcon,
@@ -33,6 +34,11 @@ export const ROUTES: EachRoute[] = [
     icon: <Scale3DIcon size={16} />,
     title: "Transformers",
     href: "/transform",
+  },
+  {
+    icon: <Barcode size={16} />,
+    title: "Defaults",
+    href: "/defaults",
   },
   {
     title: "",
