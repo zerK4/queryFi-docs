@@ -1,0 +1,111 @@
+---
+title: Mutator
+description: queryFi mutator super method
+---
+
+The `mutator` allows to interfere with the query before it is built.
+
+---
+
+## Method Signature  
+
+```ts
+mutator?: (qb: QueryBuilder<T>) => QueryBuilder<T>;
+```
+
+---
+
+## Returns
+
+The `mutator` method returns the `QueryBuilder` instance.
+
+---
+
+## Examples
+
+### Add a `where` clause to the query.
+
+```ts
+const query = createQuery<Post>('/api/posts', {
+  mutator((qb) => {
+    return qb.where('id', '>', 1);
+  }).select(['id', 'title']);
+});
+```
+
+Basically, it breaks the chain for you and lets you be more dynamic on building queries.
+
+---
+
+Let's take a more complex example:
+
+### 1. From the [defaults](defaults/) page we can take this:
+
+```ts
+export function queryfi<T extends Record<string, any>>(
+  basePath: string,
+  options?: QueryBuilderOptions
+): QueryBuilder<T> {
+  return new QueryBuilder<T>(basePath, options);
+}
+```
+
+### 2. Create a buildQuery method that will be used to build your queries:
+
+```ts
+import { queryfi } from "@/lib/queryfi";
+import { QueryBuilder } from "queryfi";
+
+export const buildQuery = <T>({
+  mutate,
+  getter,
+  path,
+}: {
+  mutate?: (qb: QueryBuilder<T>) => QueryBuilder<T>;
+  getter?: "get" | "first" | "build" | "count";
+  path: string | number;
+}) => {
+  return queryfi<T>(`/api/{api_version}/${path ?? ""}`)
+    .mutator((qb) => (mutate ? mutate(qb) : qb))
+    [getter]();
+};
+```
+
+### 3. Use it to fetch your data:
+```ts
+export async function getMyData<T>( // we use a generic in case you want an array or a single object.
+    mutate?: (qb: QueryBuilder<T>) => QueryBuilder<T>,
+    getter?: "get" | "first" | "build" | "count"
+    ) {
+    const url = buildQuery<T>({
+        path: "user",
+        getter: getter ?? "get" // get gets an array, first only one object,
+        mutate(qb) {
+          if (mutate) {
+            return mutate(qb);
+          }
+          return qb;
+        },
+      });
+
+      const { data } = await fetchClient<T>({
+        url,
+      });
+
+      return data;
+}
+```
+
+The above code returns an array of users.
+
+Now we can reuse this piece of code to fetch the users in any manner we want.
+
+```ts
+const data = await getMyData<IUser[]>((qb) => {
+  return qb.where([
+    ['name', 'like', '%doe%'],
+    ['email', 'like', '%gmail%'],
+  ]).select(['email', 'name', 'id'])
+  ;
+}, 'get');
+```
